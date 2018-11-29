@@ -15,13 +15,30 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
     crossorigin="anonymous">
 
+  <!-- Google Fonts: Roboto and Open Sans -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
+
+  <!-- fontawesome.com -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+    crossorigin="anonymous">
+
   <!-- My CSS -->
+
   <!-- <link rel="stylesheet" href="./css/styles.css"> -->
   <style>
+
+    body{
+      font-family: 'Open Sans', sans-serif;
+      font-family: 'Roboto', sans-serif;
+    }
     h2 {
-  font-size: 16px;
-  font-weight: bold;
-}
+      font-size: 16px;
+      font-weight: bold;
+    }
+    h3{
+      font-family: 'Roboto';
+      font-weight: bold;
+    }
 
 </style>
 </head>
@@ -38,46 +55,119 @@
     </form>
 
     <div class="mt-4" id="display-info">
-      <h3>Advisory Info</h3>
+      <h3><span class="fas fa-info-circle fa-1x"></span>  Advisory Info</h3>
+      <hr>
       <h2>Description:</h2>
       <p id=description></p>
       <h2>Climate:</h2>
       <p id=climate></p>
-      <h2>Required:</h2>
-      <p id=required></p>
       <h2>Health:</h2>
       <p id=health></p>
-      <h2>Safety:</h2>
-      <p id=safety></p>
     </div>
 
-  </div>
+    <!-- example call 3 modals  -->
+    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Open modal for @mdo</button>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@fat">Open modal for @fat</button>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Open modal for @getbootstrap</button>
+    
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Recipient:</label>
+                <input type="text" class="form-control" id="recipient-name">
+              </div>
+              <div class="form-group">
+                <label for="message-text" class="col-form-label">Message:</label>
+                <textarea class="form-control" id="message-text"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Send message</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+    
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+      More Info
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle"><span class="fas fa-info-circle fa-1x"></span>  Advisory Info</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h2><span class="fas fa-exclamation-triangle fa-1x"></span>  Required</h2>
+            <p id=required></p>
+            <!-- <h2><span class="fas fa-medkit fa-1x"></span>  Health</h2>
+            <p id=health></p> -->
+            <h2><span class="fas fa-check-square fa-1x"></span>  Safety</h2>
+            <p id=safety></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+    <!-- icons  fa-5x is the size of the icon, we can change to sm 1x to max 10x-->
+    <!-- this icon's 1) style prefix == fas and 2) icon name == stroopwafel -->
+    <i class="fas fa-plane-arrival fa-5x"></i>
+    <i class="fas fa-plane-departure fa-5x"></i> <!-- using an <i> element to reference the icon -->
+    <span class="fas fa-plane fa-5x"></span> <!-- using a <span> element to reference the icon -->
+    <span class="fas fa-globe-americas fa-5x"></span> <!-- using a <span> element to reference the icon -->
+    <span class="fas fa-archway fa-5x"></span> <!-- using a <span> element to reference the icon -->
+    <span class="fas fa-cocktail fa-5x"></span> <!-- using a <span> element to reference the icon -->
+    <span class="fas fa-hotel fa-5x"></span> <!-- using a <span> element to reference the icon -->
+    <span class="fas fa-hashtag fa-5x"></span> <!-- using a <span> element to reference the icon -->
+    <span class="fas fa-info-circle fa-5x"></span> <!-- using a <span> element to reference the icon -->
+    <!-- icons -->
+
+    <!-- Optional JavaScript -->
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <!-- jQuery CDN  -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+      crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+      crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
 
-
-
-
-  <!-- Optional JavaScript -->
-
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-
-  <!-- jQuery CDN  -->
-  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-    crossorigin="anonymous"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-    crossorigin="anonymous"></script>
-
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-    crossorigin="anonymous"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-
-
-  <!-- My Javascript -->
-  <script src="api-pictures.js"></script>
+    <!-- My Javascript -->
+    <script src="api-advisory-info.js"></script>
 
 
 
