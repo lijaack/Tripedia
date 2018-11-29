@@ -10,8 +10,8 @@
   firebase.initializeApp(config);
 
   var database = firebase.database();
-  
-//   var citiesRef = dbRef.ref('cities');
+
+//   var destionationsRef = dbRef.ref('destinations');
 
 $("#xxxxxxxxxx").on("click", function (event) {
     // Prevent form from submitting
