@@ -1,0 +1,54 @@
+
+
+
+
+
+/* The card */
+.card {
+  position: relative;
+ /* height: 450px;*/
+/*  width: 900px;*/
+ /* margin: 200px auto;*/
+ border: 0px solid rgba(0,0,0,.125);
+  background-color: #FFF;
+  -webkit-box-shadow: 10px 10px 93px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 93px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 93px 0px rgba(0, 0, 0, 0.75);
+  
+}
+
+
+
+
+
+
+
+p {
+  text-align: justify;
+  padding-top: 10px;
+  font-size: 0.95rem;
+  line-height: 150%;
+  color: #4B4B4B;
+}
+
+
+
+
+/* Floating action button */
+.fab {
+  position: absolute;
+  right: 23px;
+  bottom: -20px;
+  box-sizing: border-box;
+  padding-top: 10px;
+  padding-left: 5px;
+  background-color: #1875D0;
+  width: 40px;
+  height: 40px;
+  color: white;
+  text-align: center;
+  border-radius: 50%;
+  -webkit-box-shadow: 10px 10px 50px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 50px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 50px 0px rgba(0, 0, 0, 0.75);
+}
