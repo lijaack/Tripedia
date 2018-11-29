@@ -329,7 +329,8 @@ function displayInfo(countryInfo) {
 
 }
 
+$("#modal").iziModal();
 
-// $("#display-info").append(
-//     "<thead><tr><td scope='col'>"'Total Billed ($)' + employeeName + "</td><td scope='col'>" + employeeRole + "</td><td scope='col'> " + employeeStart + "</td><td scope='col'>Months Worked</td><td scope='col'>" + employeeRate + "($)</td><td scope='col'>Total Billed ($)</td></tr></thead>")
-
+$('#myModal').on('shown.bs.modal', function () {
+    $('#myInput').trigger('focus')
+  })
