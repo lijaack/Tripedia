@@ -11,8 +11,16 @@
      background:#0babab; 
  }
 
+.btn {
+    background:#1875D0;
+}
+body {
+    font-family: 'Poppins', sans-serif;
+}
 
-
+h5 {
+    font-family: 'Poppins', sans-serif;
+}
 /* The card */
 .card {
     position: relative;
