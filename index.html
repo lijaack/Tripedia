@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
         crossorigin="anonymous">
 
-        <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 
 </head>
 
@@ -110,7 +110,8 @@
                         the industry's standard dummy text ever since the 1500s, when an unknown printer took a
                         galley
                     </div>
-                    <div class="fab"><i class="fas fa-external-link-alt"> </i></div>
+                    <div class="fab"><i class="fas fa-external-link-alt" data-toggle="modal" data-target="#modalAdvisory">
+                        </i></div>
                 </div>
             </div>
 
@@ -137,12 +138,38 @@
 
 
 
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="modalAdvisory" tabindex="-1" role="dialog" aria-labelledby="modalAdvisory"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title modal-advisory-title" id="modalAdvisory">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body modal-advisory-body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <div class="card-footer bg-transparent border-light text-center"> This is the footer</div>
 
 
-        
 
-        
+
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
