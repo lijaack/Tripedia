@@ -28,13 +28,7 @@
 //             console.log(response)
 
             //  this returns 3 results to the main page
-            for (var i = 0; i < 3; i++) {
-                $(".container").append('<img class="thumbnail" src="' + response.businesses[i].image_url + '"/><h2 class="name">' + response.businesses[i].name + '</h2><p class="phone">' + response.businesses[i].display_phone + '</p><p class="address">' + response.businesses[i].location.address1 + ', ' + response.businesses[i].location.city + ' ' + response.businesses[i].location.zip_code + '</p><hr>')
-            }
-            // this returns all results to the modal page
-            for (var i = 0; i < response.businesses.length; i++) {
-                $(".modal-body").append('<img class="thumbnail" src="' + response.businesses[i].image_url + '"/><h2 class="name">' + response.businesses[i].name + '</h2><p class="phone">' + response.businesses[i].display_phone + '</p><p class="address">' + response.businesses[i].location.address1 + ', ' + response.businesses[i].location.city + ' ' + response.businesses[i].location.zip_code + '</p><hr>')
-            }
+
 
         // =========================================================
 
