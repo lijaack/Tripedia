@@ -88,3 +88,8 @@ h5 {
   .h1-title {
     font-family: 'Raleway', sans-serif;
   }
+
+
+button {
+    float: right;
+  }
