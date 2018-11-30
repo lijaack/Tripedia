@@ -252,29 +252,9 @@ var isoCountries = {
 console.log("start");
 
 
-var countryInfo = {};
 
-$("#run-submit").on("click", function (event) {
+function countryInfo(countryId) {
 
-    // Prevent form from submitting
-    event.preventDefault();
-
-    // Get the input values
-    var country = $("#fromCity").val().trim();
-    console.log(country);
-
-    for (var key in isoCountries) {
-        if (isoCountries.hasOwnProperty(key)) {
-            var keyValue = isoCountries[key];
-            if (keyValue === country){
-                countryId = key;
-            }
-        }
-    }   
-
-    console.log(countryId);
-
-    $("#fromCity").val("");
 
     queryURLid = "https://api.tugo.com/v1/travelsafe/countries/" + countryId;
     
@@ -290,7 +270,7 @@ $("#run-submit").on("click", function (event) {
         console.log(response);
         displayInfo(response);
     });
-});
+}
 
 
 function displayInfo(countryInfo) {
@@ -305,16 +285,16 @@ function displayInfo(countryInfo) {
     
     // info for the modal //
     // modal-advisory-body
-    $("#modalAdvisory").html('<h5 class="card-header card_header_color"><i class="fa  fa-list-alt">Advisory Information </i></h5>');
+    $("#modalAdvisoryTitle").append('<i class="fas  fa-info-circle">Advisory Information </i>');
 
     $("#modal-advisory-body").append("<p><strong>Required:  </strong><p id='required'></p><p><strong>Required:  </strong><p id='safety'></p>")
     console.log("body");
-    // for (i=0; i < countryInfo.entryExitRequirement.requirementInfo.length; i++) {
-    //     $("#required").append("<strong>" + countryInfo.entryExitRequirement.requirementInfo[i].category + "</strong>-->" + countryInfo.entryExitRequirement.requirementInfo[i].description + "<br>");
-    // }
-    // for (i=0; i < countryInfo.safety.safetyInfo.length; i++) {
-    //     $("#safety").append("<strong>" + countryInfo.safety.safetyInfo[i].category + "</strong>-->" + countryInfo.safety.safetyInfo[i].description + "<br>");
-    // }
+    for (i=0; i < countryInfo.entryExitRequirement.requirementInfo.length; i++) {
+         $("#required").append("<strong>" + countryInfo.entryExitRequirement.requirementInfo[i].category + "</strong>-->" + countryInfo.entryExitRequirement.requirementInfo[i].description + "<br>");
+     }
+    for (i=0; i < countryInfo.safety.safetyInfo.length; i++) {
+        $("#safety").append("<strong>" + countryInfo.safety.safetyInfo[i].category + "</strong>-->" + countryInfo.safety.safetyInfo[i].description + "<br>");
+     }
 }
 
 $('#myModal').on('shown.bs.modal', function () {
