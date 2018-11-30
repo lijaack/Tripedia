@@ -49,16 +49,25 @@
 //
 
 
-$("#submit").on("click", function(){
+$("#run-submit").on("click", function(){
     event.preventDefault();
-    var originName = $("#origin").val();
-    var destinationName = $("#destination").val();
-    var startDate = $("#start-date").val();
-    var endDate = $("#end-date").val();
+
+
+
+    //give a variable to all the values pulled
+
+    var originName = $("#fromCity").val();
+    var destinationName = $("#toDestination").val();
+    var startDate = $("#startDate").val();
+    console.log(startDate)
+    var endDate = $("#endDate").val();
+    console.log(endDate)
     var originIATA = "";
     var destinationIATA = "";
     var airlineCode ="";
     var airlineName ="";
+
+    // checks name enter for spaces and change it to %20 for the browser
     for (var i=0; originName.length > i; i++){
         if (originName[i] === " "){
             originName[i] === "%20"
@@ -70,9 +79,13 @@ $("#submit").on("click", function(){
             destinationName[i] === "%20"
         }
     };
+
+    // enters variables in parameters
     var originIataURL = "https://api.sandbox.amadeus.com/v1.2/airports/autocomplete?apikey=MenRvMLXx9zCjtsAkpL5X2Bt1fxrMwL7&term=" + originName;
     var destinationIataURL = "https://api.sandbox.amadeus.com/v1.2/airports/autocomplete?apikey=MenRvMLXx9zCjtsAkpL5X2Bt1fxrMwL7&term=" + destinationName;
     
+
+    // make ajax call-1 to get the IATA code  for the origin location 
     $.ajax({
         url: originIataURL, 
         method: "GET",
@@ -80,6 +93,7 @@ $("#submit").on("click", function(){
     
         originIATA = response[0].value;
     
+    // // make ajax call-2 to get the IATA code  for the destination location 
     }).then(function(){
 
         $.ajax({
@@ -88,21 +102,39 @@ $("#submit").on("click", function(){
         }).then(function(response) {
 
             destinationIATA = response[0].value;
+        
+    //after both IATA codes, run this function
 
         }).then(function(){ 
 
-            console.log(originIATA)
-            console.log(destinationIATA)
+
+    // put IATA codes into Parameters
+
             var locationInfoURL = "https://api.sandbox.amadeus.com/v1.2/location/" + destinationIATA + "/?apikey=MenRvMLXx9zCjtsAkpL5X2Bt1fxrMwL7"
-            var flightURL = "https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=MenRvMLXx9zCjtsAkpL5X2Bt1fxrMwL7&origin=" + originIATA + "&destination=" +destinationIATA + "&departure_date=2018-12-25&return_date=2018-12-25";
-    
+            var flightURL = "https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=MenRvMLXx9zCjtsAkpL5X2Bt1fxrMwL7&origin=" + originIATA + "&destination=" +destinationIATA + "&departure_date=" + startDate + "&return_date=" + endDate;
+            
+
+    //then grab the flight informations available using IATA codes 
             $.ajax({
                 url: flightURL,
                 method: "GET"
             }).then(function(response) {
                 
-                // flightInfo.append("<>")
+    // after the flight information is retrieved, append the information for the cheapest airline to the DOM
                 console.log(response)
+                $("#flightInfo").empty();
+
+                    var flightInfo = $("<div>")
+
+                    var airlineCode = response.results[0].itineraries[0].inbound.flights[0].marketing_airline
+                    var airlineIMG = $("<img src='https://content.airhex.com/content/logos/airlines_" + airlineCode + "_200_70_r.png'></img>");
+                    flightInfo.append(airlineIMG )
+                    flightInfo.append("<p> Cheapest flight:"+ response.results[0].fare.price_per_adult.total_fare + "</p>")
+                    $("#flightInfo").append(flightInfo)
+
+
+    // loop through the 10 cheapest airline and append the information to the flight information modal
+    
                 for (var i = 0; i < 10; i++){
                     airlineCode =  response.results[i].itineraries[0].outbound.flights[0].marketing_airline;
 
@@ -122,9 +154,9 @@ $("#submit").on("click", function(){
                     console.log(response.results[i].fare.price_per_adult.total_fare)
                     console.log(response.results[i].itineraries[0].inbound.flights[0].marketing_airline)
                     console.log(response.results[i].itineraries[0].outbound.flights[0].marketing_airline)
-                    flightInfo.append("<h3> Airlines:" + response.results[i].itineraries[0].inbound.flights[0].marketing_airline + "</h3>" )
-                    flightInfo.append("<p> Price:"+ response.results[i].fare.price_per_adult.total_fare + "</p>")
-                    $("#flight-info").append(flightInfo)
+                    // flightInfo.append("<h3> Airlines:" + response.results[i].itineraries[0].inbound.flights[0].marketing_airline + "</h3>" )
+                    // flightInfo.append("<p> Price:"+ response.results[i].fare.price_per_adult.total_fare + "</p>")
+                    // $("#flightInfo").append(flightInfo)
 
                 }
                
@@ -150,7 +182,6 @@ $("#submit").on("click", function(){
     });
 })  
     // append this div
-    var flightInfo = $("<div>")
     
 
 
