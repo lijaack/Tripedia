@@ -305,16 +305,16 @@ function displayInfo(countryInfo) {
     
     // info for the modal //
     // modal-advisory-body
-    $("#modalAdvisory").html('<h5 class="card-header card_header_color"><i class="fa  fa-list-alt">Advisory Information </i></h5>');
+    $("#modalAdvisoryTitle").append('<i class="fas  fa-info-circle">Advisory Information </i>');
 
-    $("#modal-advisory-body").text("test");
+    $("#modal-advisory-body").append("<p><strong>Required:  </strong><p id='required'></p><p><strong>Required:  </strong><p id='safety'></p>")
     console.log("body");
-    // for (i=0; i < countryInfo.entryExitRequirement.requirementInfo.length; i++) {
-    //     $("#required").append("<strong>" + countryInfo.entryExitRequirement.requirementInfo[i].category + "</strong>-->" + countryInfo.entryExitRequirement.requirementInfo[i].description + "<br>");
-    // }
-    // for (i=0; i < countryInfo.safety.safetyInfo.length; i++) {
-    //     $("#safety").append("<strong>" + countryInfo.safety.safetyInfo[i].category + "</strong>-->" + countryInfo.safety.safetyInfo[i].description + "<br>");
-    // }
+    for (i=0; i < countryInfo.entryExitRequirement.requirementInfo.length; i++) {
+         $("#required").append("<strong>" + countryInfo.entryExitRequirement.requirementInfo[i].category + "</strong>-->" + countryInfo.entryExitRequirement.requirementInfo[i].description + "<br>");
+     }
+    for (i=0; i < countryInfo.safety.safetyInfo.length; i++) {
+        $("#safety").append("<strong>" + countryInfo.safety.safetyInfo[i].category + "</strong>-->" + countryInfo.safety.safetyInfo[i].description + "<br>");
+     }
 }
 
 $('#myModal').on('shown.bs.modal', function () {
