@@ -48,7 +48,6 @@ $("#run-submit").on("click", function (event) {
     database.ref().push({
         "cities" : { 
         city : destination,
-        // counter: counter + 1,
         counter: 1,
         dateAdded: firebase.database.ServerValue.TIMESTAMP,
         dateUpdated: firebase.database.ServerValue.TIMESTAMP
