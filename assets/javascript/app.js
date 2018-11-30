@@ -122,15 +122,50 @@ $("#run-submit").on("click", function(){
                 
     // after the flight information is retrieved, append the information for the cheapest airline to the DOM
                 console.log(response)
+
+
+
                 $("#flightInfo").empty();
 
-                    var flightInfo = $("<div>")
+                    var flightPrice = $("<div class='row'>")
+                    var flightInfo = $("<div class='row'>")
+                    var departureInfo = $("<div class='col-5'>")
+                    var spaceInfo = $("<div class='col-2'>")
+                    var returnInfo = $("<div class='col-5'>")
 
-                    var airlineCode = response.results[0].itineraries[0].inbound.flights[0].marketing_airline
-                    var airlineIMG = $("<img src='https://content.airhex.com/content/logos/airlines_" + airlineCode + "_200_70_r.png'></img>");
-                    flightInfo.append(airlineIMG )
-                    flightInfo.append("<p> Cheapest flight:"+ response.results[0].fare.price_per_adult.total_fare + "</p>")
+
+                    var departureCode = response.results[0].itineraries[0].inbound.flights[0].marketing_airline
+                    var returnCode = response.results[0].itineraries[0].outbound.flights[0].marketing_airline
+                    var departureIMG = $("<img src='https://content.airhex.com/content/logos/airlines_" + departureCode + "_150_70_r.png'></img>");
+                    var returnIMG =  $("<img src='https://content.airhex.com/content/logos/airlines_" + returnCode + "_150_70_r.png'></img>");
+                    var departureDuration = response.results[0].itineraries[0].inbound.duration;
+                    var returnDuration = response.results[0].itineraries[0].outbound.duration;
+
+
+                    flightPrice.append("<h4> Cheapest flight: $"+ response.results[0].fare.price_per_adult.total_fare + "</h4>");
+                  
+                    departureInfo.append("<p><strong> Departure flight</strong></p>");
+                    departureInfo.append(departureIMG);
+                    departureInfo.append("<p><strong>Flight duration: </strong>" + departureDuration + "</p>");
+      
+                    returnInfo.append("<p><strong> Return flight</strong></p>");
+                    returnInfo.append(returnIMG);
+                    returnInfo.append("<p><strong>Flight duration: </strong>" + returnDuration + "</p>");
+                    flightInfo.append(departureInfo);
+                    flightInfo.append(spaceInfo);
+                    flightInfo.append(returnInfo);
+
+                    $("#flightInfo").append(flightPrice)
                     $("#flightInfo").append(flightInfo)
+
+
+
+
+
+
+
+
+
 
 
     // loop through the 10 cheapest airline and append the information to the flight information modal
