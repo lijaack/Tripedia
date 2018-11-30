@@ -49,12 +49,14 @@
 //
 
 
-$("#submit").on("click", function(){
+$("#run-submit").on("click", function(){
     event.preventDefault();
-    var originName = $("#origin").val();
-    var destinationName = $("#destination").val();
-    var startDate = $("#start-date").val();
-    var endDate = $("#end-date").val();
+    var originName = $("#fromCity").val();
+    var destinationName = $("#toDestination").val();
+    var startDate = $("#startDate").val();
+    console.log(startDate)
+    var endDate = $("#endDate").val();
+    console.log(endDate)
     var originIATA = "";
     var destinationIATA = "";
     var airlineCode ="";
@@ -91,10 +93,10 @@ $("#submit").on("click", function(){
 
         }).then(function(){ 
 
-            console.log(originIATA)
-            console.log(destinationIATA)
+            // console.log(originIATA)
+            // console.log(destinationIATA)
             var locationInfoURL = "https://api.sandbox.amadeus.com/v1.2/location/" + destinationIATA + "/?apikey=MenRvMLXx9zCjtsAkpL5X2Bt1fxrMwL7"
-            var flightURL = "https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=MenRvMLXx9zCjtsAkpL5X2Bt1fxrMwL7&origin=" + originIATA + "&destination=" +destinationIATA + "&departure_date=2018-12-25&return_date=2018-12-25";
+            var flightURL = "https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=MenRvMLXx9zCjtsAkpL5X2Bt1fxrMwL7&origin=" + originIATA + "&destination=" +destinationIATA + "&departure_date=" + startDate + "&return_date=" + endDate;
     
             $.ajax({
                 url: flightURL,
@@ -103,6 +105,15 @@ $("#submit").on("click", function(){
                 
                 // flightInfo.append("<>")
                 console.log(response)
+                    $("#flightInfo").empty();
+                    var airlineCode = response.results[0].itineraries[0].inbound.flights[0].marketing_airline
+                    var airlineIMG = $("<img src='https://content.airhex.com/content/logos/airlines_" + airlineCode + "_200_70_r.png'></img>");
+                    flightInfo.append(airlineIMG )
+                    flightInfo.append("<p> Cheapest flight:"+ response.results[0].fare.price_per_adult.total_fare + "</p>")
+                    $("#flightInfo").append(flightInfo)
+
+
+
                 for (var i = 0; i < 10; i++){
                     airlineCode =  response.results[i].itineraries[0].outbound.flights[0].marketing_airline;
 
@@ -122,9 +133,9 @@ $("#submit").on("click", function(){
                     console.log(response.results[i].fare.price_per_adult.total_fare)
                     console.log(response.results[i].itineraries[0].inbound.flights[0].marketing_airline)
                     console.log(response.results[i].itineraries[0].outbound.flights[0].marketing_airline)
-                    flightInfo.append("<h3> Airlines:" + response.results[i].itineraries[0].inbound.flights[0].marketing_airline + "</h3>" )
-                    flightInfo.append("<p> Price:"+ response.results[i].fare.price_per_adult.total_fare + "</p>")
-                    $("#flight-info").append(flightInfo)
+                    // flightInfo.append("<h3> Airlines:" + response.results[i].itineraries[0].inbound.flights[0].marketing_airline + "</h3>" )
+                    // flightInfo.append("<p> Price:"+ response.results[i].fare.price_per_adult.total_fare + "</p>")
+                    // $("#flightInfo").append(flightInfo)
 
                 }
                

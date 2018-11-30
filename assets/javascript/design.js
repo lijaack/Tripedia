@@ -1,14 +1,14 @@
-$(document).on("click", "#run-submit", function () {
-    event.preventDefault();
+// $(document).on("click", "#run-submit", function () {
+//     event.preventDefault();
 
-var from = $("#fromCity").val();
-var to = $("#toDestination").val();
-var fromDate =$("#startDate").val();
-var toDate =$("#endDate").val();
+// var from = $("#fromCity").val();
+// var to = $("#toDestination").val();
+// var fromDate =$("#startDate").val();
+// var toDate =$("#endDate").val();
 
 
-console.log("from: " + from);
-console.log("from: " + to);
-console.log("from: " + fromDate);
-console.log("from: " + toDate);
-});
+// console.log("from: " + from);
+// console.log("from: " + to);
+// console.log("from: " + fromDate);
+// console.log("from: " + toDate);
+// });
