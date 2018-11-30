@@ -56,21 +56,27 @@ $("#run-submit").on("click", function (event) {
     // <ul class=“list-group list-group-flush” id=“listSearches”>
     //                        <!-- <li class=“list-group-item”>Cras justo odio</li>
 
-    $("#listSearches").append("<li class='list-group-item'>" + destination + "</li>")
+    
 
 });
 
 
-function updatetrends() {
-  /// this function will update the top trends destination of the year 
-  /// it will get all the city from the DB sortedby counter and it will send to the box the top 10
+// function updatetrends() {
+//   /// this function will update the top trends destination of the year 
+//   /// it will get all the city from the DB sortedby counter and it will send to the box the top 10
 
-    // i think we can read orderby and limit to 10 the results (pending)
+//     // i think we can read orderby and limit to 10 the results (pending)
+//     $("#listSearches").append("<li class='list-group-item'>" + destination + "</li>")
+//  };
+
+ database.ref().on("child_added", function (snapshot) {
+
+
+    var destination = snapshot.val().destination;
+  
     $("#listSearches").append("<li class='list-group-item'>" + destination + "</li>")
- };
 
-
-
+ });
 //  dataRef.ref().orderBy("counter").limitToLast(5).on("child_added", function(snapshot) {
 //     console.log("hello");
 //     console.log(snapshot.val())
@@ -79,4 +85,3 @@ function updatetrends() {
 //     $("#email-display").text(snapshot.val().email);
 //     $("#age-display").text(snapshot.val().age);
 //     $("#comment-display").text(snapshot.val().comment);
-
