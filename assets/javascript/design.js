@@ -1,21 +1,21 @@
 var from = "";
 var to = "";
-var fromDate= "";
-var toDate="";
-$(".main-page").hide();
+var fromDate = "";
+var toDate = "";
+clearSearch();
 
 $(document).on("click", "#run-submit", function () {
     event.preventDefault();
     clearSearch();
-    $(".main-page").show();
-   from = $("#fromCity").val();
+    showContainers();
+    from = $("#fromCity").val();
     to = $("#toDestination").val();
     fromDate = $("#startDate").val();
     toDate = $("#endDate").val();
 
     addPlaceImage();
     addGoogleMaps();
-   
+
 
 });
 
@@ -23,13 +23,20 @@ $(document).on("click", "#run-submit", function () {
 function clearSearch() {
     $("#imagePlace").text("");
     $(".main-page").hide();
-    
+    $(".footer").hide();
+
 }
+
+function showContainers() {
+    $(".main-page").show();
+    $(".footer").show();
+}
+
 
 function addGoogleMaps() {
     //Send city to google maps DOM
 
-    $("#googleMaps").attr("src","https://www.google.com/maps/embed/v1/search?key=AIzaSyADKWCDVEQq0fb4Hp33enBpV0jNH7Rrslg&q=record+hotels+in+" + to);
+    $("#googleMaps").attr("src", "https://www.google.com/maps/embed/v1/search?key=AIzaSyADKWCDVEQq0fb4Hp33enBpV0jNH7Rrslg&q=record+hotels+in+" + to);
 }
 
 function addPlaceImage() {
@@ -43,6 +50,6 @@ function addPlaceImage() {
     }).then(function (response) {
         console.log(response.hits[0].userImageURL);
         $("#imagePlace").append(
-        "<img src=" + response.hits[0].previewURL + " width='150px' height='150px' class='rounded-circle mx-auto d-block'>");
+            "<img src=" + response.hits[0].previewURL + " width='150px' height='150px' class='rounded-circle mx-auto d-block'>");
     });
 }
