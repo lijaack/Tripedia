@@ -51,6 +51,11 @@
 
 $("#run-submit").on("click", function(){
     event.preventDefault();
+
+
+
+    //give a variable to all the values pulled
+
     var originName = $("#fromCity").val();
     var destinationName = $("#toDestination").val();
     var startDate = $("#startDate").val();
@@ -61,6 +66,8 @@ $("#run-submit").on("click", function(){
     var destinationIATA = "";
     var airlineCode ="";
     var airlineName ="";
+
+    // checks name enter for spaces and change it to %20 for the browser
     for (var i=0; originName.length > i; i++){
         if (originName[i] === " "){
             originName[i] === "%20"
@@ -72,9 +79,13 @@ $("#run-submit").on("click", function(){
             destinationName[i] === "%20"
         }
     };
+
+    // enters variables in parameters
     var originIataURL = "https://api.sandbox.amadeus.com/v1.2/airports/autocomplete?apikey=MenRvMLXx9zCjtsAkpL5X2Bt1fxrMwL7&term=" + originName;
     var destinationIataURL = "https://api.sandbox.amadeus.com/v1.2/airports/autocomplete?apikey=MenRvMLXx9zCjtsAkpL5X2Bt1fxrMwL7&term=" + destinationName;
     
+
+    // make ajax call-1 to get the IATA code  for the origin location 
     $.ajax({
         url: originIataURL, 
         method: "GET",
@@ -82,6 +93,7 @@ $("#run-submit").on("click", function(){
     
         originIATA = response[0].value;
     
+    // // make ajax call-2 to get the IATA code  for the destination location 
     }).then(function(){
 
         $.ajax({
@@ -90,22 +102,30 @@ $("#run-submit").on("click", function(){
         }).then(function(response) {
 
             destinationIATA = response[0].value;
+        
+    //after both IATA codes, run this function
 
         }).then(function(){ 
 
-            // console.log(originIATA)
-            // console.log(destinationIATA)
+
+    // put IATA codes into Parameters
+
             var locationInfoURL = "https://api.sandbox.amadeus.com/v1.2/location/" + destinationIATA + "/?apikey=MenRvMLXx9zCjtsAkpL5X2Bt1fxrMwL7"
             var flightURL = "https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=MenRvMLXx9zCjtsAkpL5X2Bt1fxrMwL7&origin=" + originIATA + "&destination=" +destinationIATA + "&departure_date=" + startDate + "&return_date=" + endDate;
-    
+            
+
+    //then grab the flight informations available using IATA codes 
             $.ajax({
                 url: flightURL,
                 method: "GET"
             }).then(function(response) {
                 
-                // flightInfo.append("<>")
+    // after the flight information is retrieved, append the information for the cheapest airline to the DOM
                 console.log(response)
-                    $("#flightInfo").empty();
+                $("#flightInfo").empty();
+
+                    var flightInfo = $("<div>")
+
                     var airlineCode = response.results[0].itineraries[0].inbound.flights[0].marketing_airline
                     var airlineIMG = $("<img src='https://content.airhex.com/content/logos/airlines_" + airlineCode + "_200_70_r.png'></img>");
                     flightInfo.append(airlineIMG )
@@ -113,7 +133,8 @@ $("#run-submit").on("click", function(){
                     $("#flightInfo").append(flightInfo)
 
 
-
+    // loop through the 10 cheapest airline and append the information to the flight information modal
+    
                 for (var i = 0; i < 10; i++){
                     airlineCode =  response.results[i].itineraries[0].outbound.flights[0].marketing_airline;
 
@@ -161,7 +182,6 @@ $("#run-submit").on("click", function(){
     });
 })  
     // append this div
-    var flightInfo = $("<div>")
     
 
 
