@@ -48,6 +48,21 @@
 //================================================================Jack's AJAX for flight prices + location information==================================================
 //
 
+// firebase data
+var config = {
+    apiKey: "AIzaSyB3MnMr5u6715nXLosDoEAvkgBGTA9Bmzw",
+    authDomain: "ucb-project-one-70c87.firebaseapp.com",
+    databaseURL: "https://ucb-project-one-70c87.firebaseio.com",
+    projectId: "ucb-project-one-70c87",
+    storageBucket: "ucb-project-one-70c87.appspot.com",
+    messagingSenderId: "1053368619947"
+  };
+  firebase.initializeApp(config);
+
+
+
+
+var database = firebase.database();
 
 $("#run-submit").on("click", function(){
     event.preventDefault();
@@ -110,7 +125,6 @@ $("#run-submit").on("click", function(){
 
     // put IATA codes into Parameters
 
-            var locationInfoURL = "https://api.sandbox.amadeus.com/v1.2/location/" + destinationIATA + "/?apikey=MenRvMLXx9zCjtsAkpL5X2Bt1fxrMwL7"
             var flightURL = "https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=MenRvMLXx9zCjtsAkpL5X2Bt1fxrMwL7&origin=" + originIATA + "&destination=" +destinationIATA + "&departure_date=" + startDate + "&return_date=" + endDate;
             
 
@@ -136,8 +150,8 @@ $("#run-submit").on("click", function(){
 
                     var departureCode = response.results[0].itineraries[0].inbound.flights[0].marketing_airline
                     var returnCode = response.results[0].itineraries[0].outbound.flights[0].marketing_airline
-                    var departureIMG = $("<img src='https://content.airhex.com/content/logos/airlines_" + departureCode + "_150_70_r.png'></img>");
-                    var returnIMG =  $("<img src='https://content.airhex.com/content/logos/airlines_" + returnCode + "_150_70_r.png'></img>");
+                    var departureIMG = $("<img style='width:100%' src='https://content.airhex.com/content/logos/airlines_" + departureCode + "_150_70_r.png'></img>");
+                    var returnIMG =  $("<img  style='width:100%' src='https://content.airhex.com/content/logos/airlines_" + returnCode + "_150_70_r.png'></img>");
                     var departureDuration = response.results[0].itineraries[0].inbound.duration;
                     var returnDuration = response.results[0].itineraries[0].outbound.duration;
 
@@ -197,23 +211,24 @@ $("#run-submit").on("click", function(){
                
 
             })
+            var locationInfoURL = "https://api.sandbox.amadeus.com/v1.2/location/" + destinationIATA + "/?apikey=MenRvMLXx9zCjtsAkpL5X2Bt1fxrMwL7"
+
+            $.ajax({
+                url: locationInfoURL,
+                method: "GET"
+            }).then(function(response) {
+
+
+                var countryId = response.city.country;
+
+
+                countryInfo(countryId);
+
+            });
 
 
         })
-    
-            // $.ajax({
-            //     url: locationInfoURL,
-            //     method: "GET"
-            // }).then(function(response) {
-
-
-
-            //     console.log(response)
-
-
-
-
-            // });
+        
     });
 })  
     // append this div
