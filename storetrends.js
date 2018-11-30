@@ -1,5 +1,6 @@
 // Initialize Firebase
-var config = {
+  // Initialize Firebase
+  var config = {
     apiKey: "AIzaSyAWdm6nqRzZeo-KiV3kAg7DrZrI_raQJ4s",
     authDomain: "destinationscities.firebaseapp.com",
     databaseURL: "https://destinationscities.firebaseio.com",
@@ -9,8 +10,9 @@ var config = {
   };
   firebase.initializeApp(config);
 
-
+  var database = firebase.database();
 /// this function will update the info of the destinations search, it will be used to calculate trends (we will store destination city, counter and timestamp added and timestamp updated, just in case we want to play with trends by year, month, etc...)
+
 $("#run-submit").on("click", function (event) {
     // Prevent form from submitting
     event.preventDefault();
@@ -45,17 +47,16 @@ $("#run-submit").on("click", function (event) {
     // });
 
 
-    database.ref().push({
-        "cities" : { 
-        city : destination,
-        // counter: counter + 1,
+    database.ref().push( {
+        destination : destination,
         counter: 1,
         dateAdded: firebase.database.ServerValue.TIMESTAMP,
         dateUpdated: firebase.database.ServerValue.TIMESTAMP
-        }
     });
+    // <ul class=“list-group list-group-flush” id=“listSearches”>
+    //                        <!-- <li class=“list-group-item”>Cras justo odio</li>
 
-    
+    $("#listSearches").append("<li class='list-group-item'>" + destination + "</li>")
 
 });
 

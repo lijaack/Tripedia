@@ -251,10 +251,48 @@ var isoCountries = {
 
 console.log("start");
 
+// var countriesId= {};
+// var queryURL = "https://api.tugo.com/v1/travelsafe/countries";
+
+// // "https://api.tugo.com/v1/travelsafe/countries/:spain";
+// var apiKey = "8rd59kunmnbv8ubnpwskjhcy";
+// $.ajax({
+//     type: "GET",
+//     url: queryURL,
+//     headers: {
+//         "X-Auth-API-Key": "8rd59kunmnbv8ubnpwskjhcy"
+//     }
+
+// }).then(function (response) {
+//     console.log(response);
+//     countriesId = response;
+//     return;
+// });
 
 
-function countryInfo(countryId) {
+var countryInfo = {};
 
+$("#findcountry").on("click", function (event) {
+
+    // Prevent form from submitting
+    event.preventDefault();
+
+    // Get the input values
+    var country = $("#country-input").val().trim();
+    console.log(country);
+
+    for (var key in isoCountries) {
+        if (isoCountries.hasOwnProperty(key)) {
+            var keyValue = isoCountries[key];
+            if (keyValue === country){
+                countryId = key;
+            }
+        }
+    }   
+
+    console.log(countryId);
+
+    $("#country-input").val("");
 
     queryURLid = "https://api.tugo.com/v1/travelsafe/countries/" + countryId;
     
@@ -270,31 +308,24 @@ function countryInfo(countryId) {
         console.log(response);
         displayInfo(response);
     });
-}
+});
 
 
 function displayInfo(countryInfo) {
 
     console.log(countryInfo);
     // var adviseInfo = "<div class='details>";
-
-    // summary info ///
-
-    $("#safeInfo").html("<p><strong>General:  </strong>" + countryInfo.advisories.description + "</p><p><strong>Climate:  </strong>" + countryInfo.climate.description + "</p><p><strong>Health:  </strong>" + countryInfo.health.description + "</p>");
-    
-    
-    // info for the modal //
-    // modal-advisory-body
-    $("#modalAdvisoryTitle").append('<i class="fas  fa-info-circle">Advisory Information </i>');
-
-    $("#modal-advisory-body").append("<p><strong>Required:  </strong><p id='required'></p><p><strong>Required:  </strong><p id='safety'></p>")
-    console.log("body");
+    $("#description").text(countryInfo.advisories.description);
+    $("#climate").text(countryInfo.climate.description);
     for (i=0; i < countryInfo.entryExitRequirement.requirementInfo.length; i++) {
-         $("#required").append("<strong>" + countryInfo.entryExitRequirement.requirementInfo[i].category + "</strong>-->" + countryInfo.entryExitRequirement.requirementInfo[i].description + "<br>");
-     }
+        $("#required").append("<strong>" + countryInfo.entryExitRequirement.requirementInfo[i].category + "</strong>-->" + countryInfo.entryExitRequirement.requirementInfo[i].description + "<br>");
+    }
+    $("#health").text(countryInfo.health.description);
     for (i=0; i < countryInfo.safety.safetyInfo.length; i++) {
         $("#safety").append("<strong>" + countryInfo.safety.safetyInfo[i].category + "</strong>-->" + countryInfo.safety.safetyInfo[i].description + "<br>");
-     }
+    }
+  
+
 }
 
 $('#myModal').on('shown.bs.modal', function () {
