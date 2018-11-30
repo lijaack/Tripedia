@@ -307,7 +307,7 @@ function displayInfo(countryInfo) {
     // modal-advisory-body
     $("#modalAdvisory").html('<h5 class="card-header card_header_color"><i class="fa  fa-list-alt">Advisory Information </i></h5>');
 
-    $("#modal-advisory-body").append("<p><strong>Required:  </strong><p id='required'></p><p><strong>Required:  </strong><p id='safety'></p>")
+    $("#modal-advisory-body").text("test");
     console.log("body");
     // for (i=0; i < countryInfo.entryExitRequirement.requirementInfo.length; i++) {
     //     $("#required").append("<strong>" + countryInfo.entryExitRequirement.requirementInfo[i].category + "</strong>-->" + countryInfo.entryExitRequirement.requirementInfo[i].description + "<br>");
