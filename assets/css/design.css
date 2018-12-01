@@ -69,6 +69,8 @@ h5 {
     -webkit-box-shadow: 10px 10px 50px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 10px 10px 50px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 10px 10px 50px 0px rgba(0, 0, 0, 0.75);
+    cursor: pointer;
+
   }
   
   .img_circle {
@@ -93,3 +95,11 @@ h5 {
 button {
     float: right;
   }
+
+  
+.yelp-img{
+  display:inline-block;
+  height: auto;
+  width:100%;
+  border-radius: 25px;
+}
