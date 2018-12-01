@@ -1,48 +1,3 @@
-//Paul adding API for yelp search
-
-// console.log("testing js file")
-
-// $(document).ready(function () {
-
-//     // Eliminate CORS issues
-//     jQuery.ajaxPrefilter(function (options) {
-//         if (options.crossDomain && jQuery.support.cors) {
-//             options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
-//         }
-//     });
-
-//     $(".yelp").on("submit", function () {
-//         event.preventDefault()
-
-
-//         var location = $("#location").val()
-
-//         $.ajax({
-//             url: 'https://api.yelp.com/v3/businesses/search?term=activities' + '&location=' + location + '',
-//             method: "GET",
-//             // Below with yelp API Key
-//             headers: {
-//                 authorization: "Bearer 8ldJWpM7u31LuDTTQXmQZ7pJb8PGvrEzgMWXOYN8EXy6C7tEY59Cdd-9EpslvK0K8jg2hLLW7GCWEGQpmdcy0ry4LLc6dKaG739eZGCCWWvUW4Szt7HpOeG7BvH-W3Yx"
-//             }
-//         }).then(function (response) {
-//             console.log(response)
-
-//             for (var i = 0; i < response.businesses.length; i++) {
-//                 $(".container").append('<img class="thumbnail" src="' + response.businesses[i].image_url + '"/><h2 class="name">' + response.businesses[i].name + '</h2><p class="phone">' + response.businesses[i].display_phone + '</p><p class="address">' + response.businesses[i].location.address1 + ', ' + response.businesses[i].location.city + ' ' + response.businesses[i].location.zip_code + '</p><hr>')
-//             }
-
-//         });
-
-//         // =========================================================
-
-//     });
-// });
-
-
-
-
-
-
 
 //
 //================================================================Jack's AJAX for flight prices + location information==================================================
@@ -175,37 +130,45 @@ $("#run-submit").on("click", function(){
 
 
 
-
-
-
-
-
-
-
     // loop through the 10 cheapest airline and append the information to the flight information modal
     
                 for (var i = 0; i < 10; i++){
-                    airlineCode =  response.results[i].itineraries[0].outbound.flights[0].marketing_airline;
 
-                    // var testURL = "https://aviation-edge.com/v2/public/airlineDatabase?key=470c64-b93ed4&codeIataAirline=" + airlineCode;
-
-                    // $.ajax({
-                    //     url: testURL,
-                    //     method: "GET"
-                    // }).then(function(response) {
-                    //     console.log(response)
-                    //     airlineName = response;
-                    //     console.log("hello")
-                    //     console.log(airlineName[0])
-                
-                    // });
                     console.log(response.results[i])
                     console.log(response.results[i].fare.price_per_adult.total_fare)
                     console.log(response.results[i].itineraries[0].inbound.flights[0].marketing_airline)
-                    console.log(response.results[i].itineraries[0].outbound.flights[0].marketing_airline)
-                    // flightInfo.append("<h3> Airlines:" + response.results[i].itineraries[0].inbound.flights[0].marketing_airline + "</h3>" )
-                    // flightInfo.append("<p> Price:"+ response.results[i].fare.price_per_adult.total_fare + "</p>")
-                    // $("#flightInfo").append(flightInfo)
+                    var flightPrice = $("<div class='row'>")
+                    var flightInfo = $("<div class='row'>")
+                    var departureInfo = $("<div class='col-5'>")
+                    var spaceInfo = $("<div class='col-2'>")
+                    var returnInfo = $("<div class='col-5'>")
+
+
+                    var departureCode = response.results[i].itineraries[0].inbound.flights[0].marketing_airline
+                    var returnCode = response.results[i].itineraries[0].outbound.flights[0].marketing_airline
+                    var departureIMG = $("<img style='width:100%' src='https://content.airhex.com/content/logos/airlines_" + departureCode + "_150_70_r.png'></img>");
+                    var returnIMG =  $("<img  style='width:100%' src='https://content.airhex.com/content/logos/airlines_" + returnCode + "_150_70_r.png'></img>");
+                    var departureDuration = response.results[i].itineraries[0].inbound.duration;
+                    var returnDuration = response.results[i].itineraries[0].outbound.duration;
+
+
+                    flightPrice.append("<h4> Flight cost: $"+ response.results[i].fare.price_per_adult.total_fare + "</h4>");
+                  
+                    departureInfo.append("<p><strong> Departure flight</strong></p>");
+                    departureInfo.append(departureIMG);
+                    departureInfo.append("<p><strong>Flight duration: </strong>" + departureDuration + "</p>");
+      
+                    returnInfo.append("<p><strong> Return flight</strong></p>");
+                    returnInfo.append(returnIMG);
+                    returnInfo.append("<p><strong>Flight duration: </strong>" + returnDuration + "</p>");
+                    flightInfo.append(departureInfo);
+                    flightInfo.append(spaceInfo);
+                    flightInfo.append(returnInfo);
+
+                    $("#modal-flight-body").append(flightPrice)
+                    $("#modal-flight-body").append(flightInfo)
+                    $("#modal-flight-body").append($("<hr>"))
+
 
                 }
                
