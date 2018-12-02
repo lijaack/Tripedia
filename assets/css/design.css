@@ -5,6 +5,11 @@ main{
   background-attachment: fixed;
   background-position:left top;
 }
+body{
+  background-image: url('../images/body-bg.jpg'); 
+  background-repeat: no-repeat; 
+  background-size: cover;
+}
 
 a {
   padding-right:10px;
