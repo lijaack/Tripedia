@@ -45,7 +45,7 @@ $("#run-submit").on("click", function(){
         addGoogleMaps();
         flightMain();
         yelpMain()
-
+        $("#safeInfo").html($("<div class='container text-center'><img src='http://www.fotos-lienzo.es/media/aw_searchautocomplete/default/loading.gif' style='width: 50px'></img></div>"))
 
     } else  if (to.length < 1 && from.length < 1) { 
         $("#error").append($("<p class='padding-zero text-center' style='color: red'>").html("<strong>Make sure all inputs are filled in!</strong>"));
@@ -404,7 +404,8 @@ function addPlaceImage() {
     function displayInfo(countryInfo) {
     
        
-    
+        $("#safeInfo").empty();
+
     
         $("#safeInfo").html("<p><strong>General:  </strong>" + countryInfo.advisories.description + "</p><p><strong>Climate:  </strong>" + countryInfo.climate.description + "</p><p><strong>Health:  </strong>" + countryInfo.health.description + "</p>");
         
