@@ -57,6 +57,8 @@ function addPlaceImage() {
         url: queryURL,
         method: "GET"
     }).then(function (response) {
+        console.log("==============================================================================")
+        console.log(response);
         console.log(response.hits[0].userImageURL);
         $("#imagePlace").append(
             "<img src=" + response.hits[0].previewURL + " width='150px' height='150px' class='rounded-circle mx-auto d-block'>");
