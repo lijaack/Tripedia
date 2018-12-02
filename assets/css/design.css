@@ -4,14 +4,27 @@
 }
 
 .carousel .item {
-    height: 70%;
-    transition:.6s ease-in-out left;
-  }
+  width:100%;
+  max-height: 100%;
   
- .search-box {
-  background: rgba(5, 128, 119); 
-  border-radius: 50px;
+  transition:.6s ease-in-out left;
+
+}
+
+  
+ .search-box-pc {
+  background: rgba(5, 128, 119, 0.3); 
+  
+  position: absolute;
+  bottom: 10%;
+  width:100%;
+  text-align: center;
  }
+
+ .search-box {
+  background:#0babab; 
+}
+
 
 .btn {
     background:#1875D0;
@@ -43,16 +56,16 @@ h5 {
     
   }
  
-  
+ 
   p {
     text-align: justify;
     padding-top: 10px;
-    font-size: 0.95rem;
+    font-size: 2vmin;
     line-height: 150%;
     color: #4B4B4B;
-  }
+  } 
   
-  
+
   /* Floating action button */
   .fab {
     position: absolute;
@@ -90,6 +103,7 @@ h5 {
 
   .h1-title {
     font-family: 'Raleway', sans-serif;
+    font-size: 3vw;
   }
 
 
@@ -105,3 +119,77 @@ button {
   border-radius: 25px;
 }
 
+
+.carousel-content-personal { 
+  position: absolute;
+  bottom: 35%;
+  left: 13%;
+  z-index: 20;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0,0,0,.6);
+}
+
+.padding-zero {
+  padding:0;
+  margin:0 !important;
+  padding-left: 5px;
+}
+
+.main-title{
+  position: absolute;
+  top: 10%;
+  z-index: 20;
+  color: grey;
+  width:100%
+}
+
+.title-image {
+  width: 20vw;
+  height:auto;
+}
+
+@media only screen and (min-width: 930px) {
+ 
+  .form-control-personal{
+    display: block;
+    width: 20vw;
+    height: 3vw;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  }
+
+  .btn {
+    height:3vw;
+  }
+  .search-box {
+    display:none;
+}
+
+}
+
+@media only screen and (max-width: 929px) {
+  .search-box-pc{
+    display:none;
+  }
+  .search-box{
+    
+    margin:0;
+  }
+
+  .carousel .item {
+    width:100%;
+    max-height: 70%;
+    
+    transition:.6s ease-in-out left;
+  
+  }
+
+
+}

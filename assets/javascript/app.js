@@ -48,10 +48,10 @@ $("#run-submit").on("click", function(){
 
 
     } else  if (to.length < 1 && from.length < 1) { 
-        $("#error").append($("<p style='color: red'>").text("Make sure all inputs are filled in!"));
+        $("#error").append($("<p class='padding-zero text-center' style='color: red'>").html("<strong>Make sure all inputs are filled in!</strong>"));
     } else {
         $("#error").empty()
-        $("#error").append($("<p style='color: red'>").text("Make sure the dates are correct"))
+        $("#error").append($("<p class='padding-zero text-center' style='color: red'>").html("<strong>Make sure the dates are correct</strong>"))
     }
 
 
@@ -71,6 +71,9 @@ function flightMain(){
     //give a variable to all the values pulled
     $("#flightInfo").empty();
     $("#modal-flight-body").empty();
+    
+    $("#flightInfo").html($("<div class='container text-center'><img src='http://www.fotos-lienzo.es/media/aw_searchautocomplete/default/loading.gif' style='width: 50px'></img></div>"))
+
 
     var originName = $("#fromCity").val();
     var destinationName = $("#toDestination").val();
@@ -139,7 +142,7 @@ function flightMain(){
                 console.log(response)
 
 
-
+                    $("#flightInfo").empty();
                
                     var flightPrice = $("<div class='row'>")
                     var flightInfo = $("<div class='row'>")
@@ -150,8 +153,8 @@ function flightMain(){
 
                     var departureCode = response.results[0].itineraries[0].inbound.flights[0].marketing_airline
                     var returnCode = response.results[0].itineraries[0].outbound.flights[0].marketing_airline
-                    var departureIMG = $("<img style='width:100%' src='https://content.airhex.com/content/logos/airlines_" + departureCode + "_150_70_r.png'></img>");
-                    var returnIMG =  $("<img  style='width:100%' src='https://content.airhex.com/content/logos/airlines_" + returnCode + "_150_70_r.png'></img>");
+                    var departureIMG = $("<img style='width:50%' src='https://content.airhex.com/content/logos/airlines_" + departureCode + "_150_70_r.png'></img>");
+                    var returnIMG =  $("<img  style='width:50%' src='https://content.airhex.com/content/logos/airlines_" + returnCode + "_150_70_r.png'></img>");
                     var departureDuration = response.results[0].itineraries[0].inbound.duration;
                     var returnDuration = response.results[0].itineraries[0].outbound.duration;
 
@@ -191,8 +194,8 @@ function flightMain(){
 
                     var departureCode = response.results[i].itineraries[0].inbound.flights[0].marketing_airline
                     var returnCode = response.results[i].itineraries[0].outbound.flights[0].marketing_airline
-                    var departureIMG = $("<img style='width:100%' src='https://content.airhex.com/content/logos/airlines_" + departureCode + "_150_70_r.png'></img>");
-                    var returnIMG =  $("<img  style='width:100%' src='https://content.airhex.com/content/logos/airlines_" + returnCode + "_150_70_r.png'></img>");
+                    var departureIMG = $("<img style='width:50%' src='https://content.airhex.com/content/logos/airlines_" + departureCode + "_150_70_r.png'></img>");
+                    var returnIMG =  $("<img  style='width:50%' src='https://content.airhex.com/content/logos/airlines_" + returnCode + "_150_70_r.png'></img>");
                     var departureDuration = response.results[i].itineraries[0].inbound.duration;
                     var returnDuration = response.results[i].itineraries[0].outbound.duration;
 
@@ -323,7 +326,7 @@ function addPlaceImage() {
 
         $("#yelpInfo").empty();
         $("#yelp-modal-body").empty();
-
+        $("#yelpInfo").html($("<div class='container text-center'><img src='http://www.fotos-lienzo.es/media/aw_searchautocomplete/default/loading.gif' style='width: 50px'></img></div>"));
         var location = $("#toDestination").val()
 
         $.ajax({
@@ -335,7 +338,7 @@ function addPlaceImage() {
             }
         }).then(function (response) {
             console.log(response)
-
+            $("#yelpInfo").empty();
           //  for (var i = 0; i < response.businesses.length; i++) {
             for (var i = 0; i < 3; i++) {
 
@@ -400,10 +403,8 @@ function addPlaceImage() {
     
     function displayInfo(countryInfo) {
     
-        console.log(countryInfo);
-        // var adviseInfo = "<div class='details>";
+       
     
-        // summary info ///
     
         $("#safeInfo").html("<p><strong>General:  </strong>" + countryInfo.advisories.description + "</p><p><strong>Climate:  </strong>" + countryInfo.climate.description + "</p><p><strong>Health:  </strong>" + countryInfo.health.description + "</p>");
         

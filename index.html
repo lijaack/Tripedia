@@ -26,40 +26,77 @@
 
     <!-- Carrousel -->
     <div id="carouselExampleSlidesOnly" class="carousel slide carousel-fade" data-ride="carousel">
+
+        <div class="main-title text-center">
+            <h1 style="font-size: 5.9vw"> Expedia?</h1>
+        </div>
+
+
+
         <div class="carousel-inner">
+
+
             <div class="carousel-item active item">
 
-                <img class="d-block w-100" src="assets/images/bg_4.jpg" alt="First slide">
-                <div class="carousel-content">
-                    <img src="assets/images/logo2.png" alt="First slide">
+                <img  class="item" src="assets/images/bg_4.jpg" alt="First slide">
+                <div class="carousel-content-personal">
+                    <img  class="title-image" src="assets/images/logo2.png" alt="First slide">
                     <h1 class="h1-title">Search for your next destination</h1>
                 </div>
             </div>
-            <div class="carousel-item item">
-                <img class="d-block w-100" src="assets/images/bg_1.jpg" alt="Second slide">
 
-                <div class="carousel-content">
+            <div class="carousel-item item">
+                <img  class="item" src="assets/images/bg_1.jpg" alt="Second slide">
+
+                <div class="carousel-content-personal">
 
                     <h1 class="h1-title">Making the most out of your holiday</h1>
                 </div>
-
-
             </div>
-            <div class="carousel-item item">
-                <img class="d-block w-100" src="assets/images/bg_3.jpg" alt="Third slide">
-                <div class="carousel-content">
 
+            <div class="carousel-item item">
+
+                <img  class="item" src="assets/images/bg_3.jpg" alt="Third slide">
+
+                <div class="carousel-content-personal">
                     <h1 class="h1-title">Safety First</h1>
                 </div>
 
             </div>
+
         </div>
+        
+            
+        <div class="search-box-pc">
+            
+            <div id="error"></div>
+
+            <br>
+    
+            <form class="form-inline justify-content-center">
+                
+                <label class="sr-only" for="fromCity">From</label>
+                <input type="text" class="form-control form-control-personal mb-2 mr-sm-2" id="fromCity" placeholder="From">
+    
+                <label class="sr-only" for="toDestination">To</label>
+                <input type="text" class="form-control form-control-personal mb-2 mr-sm-2" id="toDestination" placeholder="To">
+    
+                <label class="sr-only" for="startDate">Start Date</label>
+                <input type="date" class="form-control form-control-personal mb-2 mr-sm-2" id="startDate" placeholder="Start Date">
+    
+                <label class="sr-only" for="endDate">End Date</label>
+                <input type="date" class="form-control form-control-personal mb-2 mr-sm-2" id="endDate" placeholder="End Date">
+    
+                <button type="button" class="btn btn-primary" id="run-submit"><i class="fas  fa-search-location"> Search</i></button>
+            </form>
+        </div>
+
     </div>
     <!-- Carrousel End -->
 
     <!-- Search boxes -->
     
-    <div class="container pt-4 search-box  ">
+    <div class=" pt-4 search-box  ">
         <div id="error"></div>
         <form class="form-inline ">
             <label class="sr-only" for="fromCity">From</label>
@@ -169,7 +206,7 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header card_header_color">
-                        <h5 class="modal-title  " id="modalFlightTitle">  <!-- title here-->   </h5>
+                        <h5 class="modal-title  " id="modalFlightTitle">  Flight Information  </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -232,11 +269,11 @@
 
     </div>
 
-    <br><br>
+    
 
 
     <!--Footer-->
-    <div class="footer jumbotron  p-2 card_header_color">
+    <div class="footer  card_header_color">
         <div class="text-center">
             <div id="row">
                 <div id="col-4">
@@ -283,7 +320,7 @@
     
     <!-- Javascript Advisory Info (IA) -->
   
-    <script src="api-advisory-info.js"></script>
+
     <script src="storetrends.js"></script>
 </body>
 
