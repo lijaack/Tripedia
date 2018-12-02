@@ -34,6 +34,7 @@ $(document).on("click", "#run-submit", function () {
         if (obj["destination"].trim() === destinationSearch.trim()) {
             var newCount = obj["count"] + 1;
             databaseHandler.child(key).child("count").set(newCount);
+            databaseHandler.child(key).child("countSort").set(newCount * -1);
             operation = "updating";
 
         } else if ((obj["destination"].trim() != destinationSearch.trim()) && operation === "inserting") {
@@ -48,9 +49,11 @@ $(document).on("click", "#run-submit", function () {
 
     if (operation === "inserting") {
         // databaseHandler.child().setValue(count);
+       
         databaseHandler.push({
             destination: destinationSearch,
             count: count,
+            countSort: count * -1,
             dateAdded: firebase.database.ServerValue.TIMESTAMP
 
         });
@@ -63,7 +66,7 @@ $(document).on("click", "#run-submit", function () {
 loadInfo();
 
 function loadInfo(snapshot) {
-    database.ref().orderByChild("count").on('value', function (snapshot) {
+    database.ref().orderByChild("countSort").on('value', function (snapshot) {
         //Clean Destination Display
         $(".destinations").remove();
         // we need the snapshot of the database for read on onClick
@@ -83,7 +86,7 @@ function loadInfo(snapshot) {
         });
 
         // Reverse the Object to sort asc
-        var resultsReversed = reverseObject(newObject);
+        var resultsReversed = newObject;
 
 
         var display = 0;
@@ -114,22 +117,22 @@ function loadInfo(snapshot) {
     });
 }
 
-//Function to reverse the object
-function reverseObject(object) {
-    var newObject = {};
-    var keys = [];
-    for (var key in object) {
-        keys.push(key);
-        console.log("Reverse Key:" + key);
-    }
-    for (var i = keys.length - 1; i >= 0; i--) {
+// //Function to reverse the object
+// function reverseObject(object) {
+//     var newObject = {};
+//     var keys = [];
+//     for (var key in object) {
+//         keys.push(key);
+//         console.log("Reverse Key:" + key);
+//     }
+//     for (var i = keys.length - 1; i >= 0; i--) {
 
-        var value = object[keys[i]];
-        newObject[keys[i]] = value;
-        console.log("Reverse Value:" + value);
-    }
+//         var value = object[keys[i]];
+//         newObject[keys[i]] = value;
+//         console.log("Reverse Value:" + value);
+//     }
 
 
 
-    return newObject;
-}
+//     return newObject;
+// }
