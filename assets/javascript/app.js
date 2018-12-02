@@ -1,30 +1,76 @@
+$(document).ready(function () {
+
+
+// Eliminate CORS issues
+jQuery.ajaxPrefilter(function (options) {
+    if (options.crossDomain && jQuery.support.cors) {
+        options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
+    }
+});
+
+
 
 //
-//================================================================Jack's AJAX for flight prices + location information==================================================
+//================================================================on search click function==================================================
 //
 
-// firebase data
-var config = {
-    apiKey: "AIzaSyB3MnMr5u6715nXLosDoEAvkgBGTA9Bmzw",
-    authDomain: "ucb-project-one-70c87.firebaseapp.com",
-    databaseURL: "https://ucb-project-one-70c87.firebaseio.com",
-    projectId: "ucb-project-one-70c87",
-    storageBucket: "ucb-project-one-70c87.appspot.com",
-    messagingSenderId: "1053368619947"
-  };
-  firebase.initializeApp(config);
+
+console.log(moment().format("YYYY-MM-DD"))
 
 
 
 
-var database = firebase.database();
+
 
 $("#run-submit").on("click", function(){
     event.preventDefault();
+    $("#error").empty()
+    from = $("#fromCity").val();
+    to = $("#toDestination").val();
+    fromDate = $("#startDate").val();
+    toDate = $("#endDate").val();
+
+    var afterNow = moment().isBefore($("#startDate").val(),"YYYY-MM-DD");
+    var oneYearWindow = moment().add(1, 'year');
+    var beforeWindow = moment(toDate,"YYYY-MM-DD").isBefore(oneYearWindow);
+    var withinYear = moment(fromDate,"YYYY-MM-DD").isBefore(oneYearWindow)
+
+
+    if (afterNow && beforeWindow && withinYear && to.length > 0 && from.length > 0) {
+        $("#error").empty()
+        clearSearch();
+        showContainers();
+        
+        addPlaceImage();
+        addGoogleMaps();
+        flightMain();
+        yelpMain()
+
+
+    } else  if (to.length < 1 && from.length < 1) { 
+        $("#error").append($("<p style='color: red'>").text("Make sure all inputs are filled in!"));
+    } else {
+        $("#error").empty()
+        $("#error").append($("<p style='color: red'>").text("Make sure the dates are correct"))
+    }
+
+
+    
+})  
 
 
 
+
+
+
+//================================================================AJAX for flight information==================================================
+
+
+
+function flightMain(){
     //give a variable to all the values pulled
+    $("#flightInfo").empty();
+    $("#modal-flight-body").empty();
 
     var originName = $("#fromCity").val();
     var destinationName = $("#toDestination").val();
@@ -34,8 +80,8 @@ $("#run-submit").on("click", function(){
     console.log(endDate)
     var originIATA = "";
     var destinationIATA = "";
-    var airlineCode ="";
-    var airlineName ="";
+    // var airlineCode ="";
+    // var airlineName ="";
 
     // checks name enter for spaces and change it to %20 for the browser
     for (var i=0; originName.length > i; i++){
@@ -78,24 +124,23 @@ $("#run-submit").on("click", function(){
         }).then(function(){ 
 
 
-    // put IATA codes into Parameters
+        // put IATA codes into Parameters
 
             var flightURL = "https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=MenRvMLXx9zCjtsAkpL5X2Bt1fxrMwL7&origin=" + originIATA + "&destination=" +destinationIATA + "&departure_date=" + startDate + "&return_date=" + endDate;
-            
+            console.log(flightURL)
 
-    //then grab the flight informations available using IATA codes 
+        //then grab the flight informations available using IATA codes 
             $.ajax({
                 url: flightURL,
                 method: "GET"
             }).then(function(response) {
                 
-    // after the flight information is retrieved, append the information for the cheapest airline to the DOM
+            // after the flight information is retrieved, append the information for the cheapest airline to the DOM
                 console.log(response)
 
 
 
-                $("#flightInfo").empty();
-
+               
                     var flightPrice = $("<div class='row'>")
                     var flightInfo = $("<div class='row'>")
                     var departureInfo = $("<div class='col-5'>")
@@ -130,7 +175,7 @@ $("#run-submit").on("click", function(){
 
 
 
-    // loop through the 10 cheapest airline and append the information to the flight information modal
+            // loop through the 10 cheapest airline and append the information to the flight information modal
     
                 for (var i = 0; i < 10; i++){
 
@@ -193,34 +238,194 @@ $("#run-submit").on("click", function(){
         })
         
     });
-})  
-    // append this div
+
+}
+
+
+
+
+//
+//================================================================on click function==================================================
+//
+
+
+var from = "";
+var to = "";
+var fromDate = "";
+var toDate = "";
+clearSearch();
+
+
+
+function clearSearch() {
+    $("#imagePlace").text("");
+    $(".main-page").hide();
+    $(".footer").hide();
+
+    $("#modalFlightTitle").text("");
+    $("#modal-flight-body").text("");
+
+    $("#modalYelpTitle").text("");
+    $("#modal-yelp-body").text("");
+
+    $("#modalAdvisoryTitle").text("");
+    $("#modal-advisory-body").text("");
+
+}
+
+function showContainers() {
+    $(".main-page").show();
+    $(".footer").show();
+}
+
+
+function addGoogleMaps() {
+    //Send city to google maps DOM
+
+    $("#googleMaps").attr("src", "https://www.google.com/maps/embed/v1/search?key=AIzaSyADKWCDVEQq0fb4Hp33enBpV0jNH7Rrslg&q=record+hotels+in+" + to);
+}
+
+function addPlaceImage() {
+    var queryURL = "https://pixabay.com/api/?key=10849663-53e62b6c16040677cfacbb330&q=" + to + "&image_type=photo&per_page=3&category='places'";
+    console.log("Query" + queryURL);
+
+    // Call pixaBay
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function (response) {
+        console.log("==============================================================================")
+        console.log(response);
+        console.log(response.hits[0].userImageURL);
+        $("#imagePlace").append(
+            "<img src=" + response.hits[0].previewURL + " width='150px' height='150px' class='rounded-circle mx-auto d-block'>");
+    });
+
+}
+
+
+
+
+
+
+
+//
+//================================================================Yelp Information==================================================
+//
+
+
+
+
+
+    function yelpMain() {
+
+       
+
+        $("#yelpInfo").empty();
+        $("#yelp-modal-body").empty();
+
+        var location = $("#toDestination").val()
+
+        $.ajax({
+            url: 'https://api.yelp.com/v3/businesses/search?term=activities' + '&location=' + location + '',
+            method: "GET",
+            // Below with yelp API Key
+            headers: {
+                authorization: "Bearer 8ldJWpM7u31LuDTTQXmQZ7pJb8PGvrEzgMWXOYN8EXy6C7tEY59Cdd-9EpslvK0K8jg2hLLW7GCWEGQpmdcy0ry4LLc6dKaG739eZGCCWWvUW4Szt7HpOeG7BvH-W3Yx"
+            }
+        }).then(function (response) {
+            console.log(response)
+
+          //  for (var i = 0; i < response.businesses.length; i++) {
+            for (var i = 0; i < 3; i++) {
+
+                var businessName = response.businesses[i].name;
+                var businessIMG = response.businesses[i].image_url;
+                var businessPhone = response.businesses[i].display_phone ;
+                var businessAddress = response.businesses[i].location.address1 + ', ' + response.businesses[i].location.city + ' ' + response.businesses[i].location.zip_code;
+               
+                var yelpName= $("<div class='row text-center'>")
+                var yelpInfo = $("<div class='row text-center'>")
+                var yelpIMG = $("<div class='col-4'>")
+                var yelpContact = $("<div class='col-8'>")
+               
+                yelpName.append('<h2 class="name">' + businessName + '</h2>')
+                yelpIMG.append('<img class="thumbnail yelp-img"  src="' + businessIMG + '">');
+                yelpContact.append('<p class="phone">' + businessPhone + '</p>')
+                yelpContact.append('<p class="address">' + businessAddress + '</p>')
+                yelpInfo.append(yelpIMG, yelpContact)
+
+                $("#yelpInfo").append(yelpName, yelpInfo, $("<hr>"))
+
+                // $("#yelpInfo").append('<img class="thumbnail yelp-img"  src="' + response.businesses[i].image_url + '"/><h2 class="name">' + response.businesses[i].name + '</h2><p class="phone">' + response.businesses[i].display_phone + '</p><p class="address">' + response.businesses[i].location.address1 + ', ' + response.businesses[i].location.city + ' ' + response.businesses[i].location.zip_code + '</p><hr>')
+      
+            
+            
+            
+            }
+            // for modal
+            for (var i = 0; i < response.businesses.length; i++) {
+                $("#yelp-modal-body").append('<img class="thumbnail yelp-img"  src="' + response.businesses[i].image_url + '"/><h2 class="name">' + response.businesses[i].name + '</h2><p class="phone">' + response.businesses[i].display_phone + '</p><p class="address">' + response.businesses[i].location.address1 + ', ' + response.businesses[i].location.city + ' ' + response.businesses[i].location.zip_code + '</p><hr>')
+            }
+
+        });
+
+    };
+        
+//
+//================================================================Advisory Information==================================================
+//
+
+
+
+    function countryInfo(countryId) {
+
+
+        queryURLid = "https://api.tugo.com/v1/travelsafe/countries/" + countryId;
+        
+        $.ajax({
+            type: "GET",
+            url: queryURLid,
+            headers: {
+                "X-Auth-API-Key": "8rd59kunmnbv8ubnpwskjhcy"
+            }
+        
+        }).then(function (response) {
+          
+            console.log(response);
+            displayInfo(response);
+        });
+    }
     
+    
+    function displayInfo(countryInfo) {
+    
+        console.log(countryInfo);
+        // var adviseInfo = "<div class='details>";
+    
+        // summary info ///
+    
+        $("#safeInfo").html("<p><strong>General:  </strong>" + countryInfo.advisories.description + "</p><p><strong>Climate:  </strong>" + countryInfo.climate.description + "</p><p><strong>Health:  </strong>" + countryInfo.health.description + "</p>");
+        
+        
+        // info for the modal //
+        // modal-advisory-body
+        $("#modalAdvisoryTitle").append('<i class="fas  fa-info-circle">Advisory Information </i>');
+    
+        $("#modal-advisory-body").append("<p><strong>Required:  </strong><p id='required'></p><p><strong>Required:  </strong><p id='safety'></p>")
+        console.log("body");
+        for (i=0; i < countryInfo.entryExitRequirement.requirementInfo.length; i++) {
+             $("#required").append("<strong>" + countryInfo.entryExitRequirement.requirementInfo[i].category + "</strong>-->" + countryInfo.entryExitRequirement.requirementInfo[i].description + "<br>");
+         }
+        for (i=0; i < countryInfo.safety.safetyInfo.length; i++) {
+            $("#safety").append("<strong>" + countryInfo.safety.safetyInfo[i].category + "</strong>-->" + countryInfo.safety.safetyInfo[i].description + "<br>");
+         }
+    }
 
 
-    // var testURL = "https://aviation-edge.com/v2/public/airlineDatabase?key=470c64-b93ed4&codeIataAirline=ua";
 
 
-
-    // $.ajax({
-    //     url: testURL,
-    //     method: "GET"
-    // }).then(function(response) {
-
-
-
-    //     console.log(response)
-
-
-
-
-    // });
-
-
-
-
-
-
+});
 
 
 
