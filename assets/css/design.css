@@ -9,7 +9,8 @@
   }
   
  .search-box {
-     background:#0babab; 
+  background: rgba(5, 128, 119); 
+  border-radius: 50px;
  }
 
 .btn {
