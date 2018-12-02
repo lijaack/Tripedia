@@ -1,82 +1,138 @@
 // Initialize Firebase
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyAWdm6nqRzZeo-KiV3kAg7DrZrI_raQJ4s",
-    authDomain: "destinationscities.firebaseapp.com",
-    databaseURL: "https://destinationscities.firebaseio.com",
-    projectId: "destinationscities",
-    storageBucket: "destinationscities.appspot.com",
-    messagingSenderId: "64416552997"
+var config = {
+    apiKey: "AIzaSyDmgq0UdGAZGoVOK-cQXvcOqP3zEbxVJbU",
+    authDomain: "travelsummary2018.firebaseapp.com",
+    databaseURL: "https://travelsummary2018.firebaseio.com",
+    projectId: "travelsummary2018",
+    storageBucket: "travelsummary2018.appspot.com",
+    messagingSenderId: "93557345644"
   };
   firebase.initializeApp(config);
 
-  var database = firebase.database();
-/// this function will update the info of the destinations search, it will be used to calculate trends (we will store destination city, counter and timestamp added and timestamp updated, just in case we want to play with trends by year, month, etc...)
+// Create a variable to reference the database.
 
-$("#run-submit").on("click", function (event) {
-    // Prevent form from submitting
+var database = firebase.database();
+var databaseHandler = database.ref();
+
+var destinationSearch = "";
+var count = 1;
+
+//Operation var to handle states of loading, inserting or updating
+var operation = "loading";
+var newPost = "";
+
+$(document).on("click", "#run-submit", function () {
     event.preventDefault();
+    operation = "inserting";
 
-    $("#error-text").text("");
+    destinationSearch = $("#toDestination").val();
 
-    // Get the input values
-    var destination = $("#toDestination").val().trim();
-    
-    // control if the input fields are empties
-    if (destination === "") {
-        $("#error-text").text("<--- All fields are mandatory, please complete the form --->");
-        return;
+    //Iterate on the full records of the database
+    for (var key in newPost) {
+        var obj = newPost[key];
+        //if there is a match with the search and the database just increase counter and update
+        if (obj["destination"].trim() === destinationSearch.trim()) {
+            var newCount = obj["count"] + 1;
+            databaseHandler.child(key).child("count").set(newCount);
+            databaseHandler.child(key).child("countSort").set(newCount * -1);
+            operation = "updating";
+
+        } else if ((obj["destination"].trim() != destinationSearch.trim()) && operation === "inserting") {
+            // Code for handling the insert
+            operation = "inserting";
+            count = 1;
+
+        }
     }
-   
-    ///// database search city, get the counter add 1 to the counter and update info or create it
-    /// if the city exist update the counter and the dateUpdated
 
-    console.log("storedata");
+    //  loadInfo();
 
-    // var counter = firebase.database().ref(destination + '/counter');
-    // starCountRef.on('value', function(snapshot) {
-    //   updateStarCount(postElement, snapshot.val());
-    // });
+    if (operation === "inserting") {
+        // databaseHandler.child().setValue(count);
+       
+        databaseHandler.push({
+            destination: destinationSearch,
+            count: count,
+            countSort: count * -1,
+            dateAdded: firebase.database.ServerValue.TIMESTAMP
 
-    // database.ref().push({
-    //     citydestination: destination,
-    //     // counter: counter + 1,
-    //     counter: 1,
-    //     dateAdded: firebase.database.ServerValue.TIMESTAMP,
-    //     dateUpdated: firebase.database.ServerValue.TIMESTAMP
-    // });
+        });
 
-
-    database.ref().push( {
-        destination : destination,
-        counter: 1,
-        dateAdded: firebase.database.ServerValue.TIMESTAMP,
-        dateUpdated: firebase.database.ServerValue.TIMESTAMP
-    });
-    // <ul class=“list-group list-group-flush” id=“listSearches”>
-    //                        <!-- <li class=“list-group-item”>Cras justo odio</li>
-
-    $("#listSearches").append("<li class='list-group-item'>" + destination + "</li>")
+        operation = "loading";
+    }
 
 });
 
+loadInfo();
 
-function updatetrends() {
-  /// this function will update the top trends destination of the year 
-  /// it will get all the city from the DB sortedby counter and it will send to the box the top 10
+function loadInfo(snapshot) {
+    database.ref().orderByChild("countSort").on('value', function (snapshot) {
+        //Clean Destination Display
+        $(".destinations").remove();
+        // we need the snapshot of the database for read on onClick
+        newPost = snapshot.val();
 
-    // i think we can read orderby and limit to 10 the results (pending)
-    $("#listSearches").append("<li class='list-group-item'>" + destination + "</li>")
- };
+        //New Object to insert sorted values
+        var newObject = {};
+
+        //To read the Order By we need to read the snapshot directly-- It return the order by count desc.. 
+        // Since is desc we need to create an object and reverse the retun of the values.
+        snapshot.forEach(function (child) {
+
+            var obj = child.val();
+            // Create an object with name of the destination as the key and count as the value 
+            newObject[obj["destination"]] = obj["count"];
+
+        });
+
+        // Reverse the Object to sort asc
+        var resultsReversed = newObject;
+
+
+        var display = 0;
+        // Iterate throug the object and display Top 10
+        for (var key in resultsReversed) {
+            if (display <= 10) {
+                console.log("New Key:" + key + "New Value: " + resultsReversed[key]);
+                $("#listSearches").append("<tr class='destinations'><td>" + key + "</td></tr>");
+            } else {
+                break;
+            }
+            display++
+        }
+
+
+        // VA: Leave this Just in case we need to get Back to the previus way to read the object from the database 
+        // for (var key in newPost) {
+
+        //   var obj = newPost[key];
+        // if (display <= 10) {
+        //   $(".results").append("<tr class='destinations'><td>" + obj["destination"] + "</td>" + "<td>" + obj["count"] + "</td></tr>");
+
+        //} else {
+        //   break;
+        // }
+        // display++
+        // }
+    });
+}
+
+// //Function to reverse the object
+// function reverseObject(object) {
+//     var newObject = {};
+//     var keys = [];
+//     for (var key in object) {
+//         keys.push(key);
+//         console.log("Reverse Key:" + key);
+//     }
+//     for (var i = keys.length - 1; i >= 0; i--) {
+
+//         var value = object[keys[i]];
+//         newObject[keys[i]] = value;
+//         console.log("Reverse Value:" + value);
+//     }
 
 
 
-//  dataRef.ref().orderBy("counter").limitToLast(5).on("child_added", function(snapshot) {
-//     console.log("hello");
-//     console.log(snapshot.val())
-//     // Change the HTML to reflect
-//     $("#name-display").text(snapshot.val().name);
-//     $("#email-display").text(snapshot.val().email);
-//     $("#age-display").text(snapshot.val().age);
-//     $("#comment-display").text(snapshot.val().comment);
-
+//     return newObject;
+// }
