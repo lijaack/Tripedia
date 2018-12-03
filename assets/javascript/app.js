@@ -416,7 +416,7 @@ function addPlaceImage() {
         // modal-advisory-body
         $("#modalAdvisoryTitle").append('<i class="fas  fa-info-circle">Advisory Information </i>');
     
-        $("#modal-advisory-body").append("<p><strong>Required:  </strong><p id='required'></p><p><strong>Required:  </strong><p id='safety'></p>")
+        $("#modal-advisory-body").append("<p><strong>Required:  </strong><p id='required'></p><p><strong>Safety:  </strong><p id='safety'></p>")
         console.log("body");
         for (i=0; i < countryInfo.entryExitRequirement.requirementInfo.length; i++) {
              $("#required").append("<strong>" + countryInfo.entryExitRequirement.requirementInfo[i].category + "</strong>-->" + countryInfo.entryExitRequirement.requirementInfo[i].description + "<br>");
