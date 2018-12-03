@@ -69,25 +69,25 @@
             
         <div class="search-box-pc">
             
-            <div id="error"></div>
+            <div class="error"></div>
 
             <br>
     
             <form class="form-inline justify-content-center">
                 
                 <label class="sr-only" for="fromCity">From</label>
-                <input type="text" class="form-control form-control-personal mb-2 mr-sm-2" id="fromCity" placeholder="From">
+                <input type="text" class="form-control form-control-personal mb-2 mr-sm-2 fromCity" id="fromCity" placeholder="From">
     
                 <label class="sr-only" for="toDestination">To</label>
-                <input type="text" class="form-control form-control-personal mb-2 mr-sm-2" id="toDestination" placeholder="To">
+                <input type="text" class="form-control form-control-personal mb-2 mr-sm-2 toDestination" id="toDestination" placeholder="To">
     
                 <label class="sr-only" for="startDate">Start Date</label>
-                <input type="date" class="form-control form-control-personal mb-2 mr-sm-2" id="startDate" placeholder="Start Date">
+                <input type="date" class="form-control form-control-personal mb-2 mr-sm-2 startDate" id="startDate" placeholder="Start Date">
     
                 <label class="sr-only" for="endDate">End Date</label>
-                <input type="date" class="form-control form-control-personal mb-2 mr-sm-2" id="endDate" placeholder="End Date">
+                <input type="date" class="form-control form-control-personal mb-2 mr-sm-2 endDate" id="endDate" placeholder="End Date">
     
-                <button type="button" class="btn btn-primary" id="run-submit"><i class="fas  fa-search-location"> Search</i></button>
+                <button type="button" class="btn btn-primary run-submit"><i class="fas  fa-search-location"> Search</i></button>
             </form>
         </div>
 
@@ -99,22 +99,25 @@
     <!-- Search boxes -->
     
     <div class=" pt-4 search-box  ">
-        <div id="error"></div>
-        <form class="form-inline ">
-            <label class="sr-only" for="fromCity">From</label>
-            <input type="text" class="form-control mb-2 mr-sm-2" id="fromCity" placeholder="From">
+        <div class="error"></div>
 
-            <label class="sr-only" for="toDestination">To</label>
-            <input type="text" class="form-control mb-2 mr-sm-2" id="toDestination" placeholder="To">
+        <br>
 
-            <label class="sr-only" for="startDate">Start Date</label>
-            <input type="date" class="form-control mb-2 mr-sm-2" id="startDate" placeholder="Start Date">
+        <form class="form-inline justify-content-center">
+            
+            <label class="sr-only" for="fromCity2">From</label>
+            <input type="text" class="form-control form-control-personal mb-2 mr-sm-2 fromCity" id="fromCity2" placeholder="From">
 
-            <label class="sr-only" for="endDate">End Date</label>
-            <input type="date" class="form-control mb-2 mr-sm-2" id="endDate" placeholder="End Date">
+            <label class="sr-only" for="toDestination2">To</label>
+            <input type="text" class="form-control form-control-personal mb-2 mr-sm-2 toDestination" id="toDestination2" placeholder="To">
 
-            <button type="button" class="btn btn-primary" id="run-submit"><i class="fas  fa-search-location"> Search</i></button>
-        </form>
+            <label class="sr-only" for="startDate2">Start Date</label>
+            <input type="date" class="form-control form-control-personal mb-2 mr-sm-2 startDate" id="startDate2" placeholder="Start Date">
+
+            <label class="sr-only" for="endDate2">End Date</label>
+            <input type="date" class="form-control form-control-personal mb-2 mr-sm-2 endDate" id="endDate2" placeholder="End Date">
+
+            <button type="button" class="btn btn-primary run-submit"><i class="fas  fa-search-location"> Search</i></button>
     </div>
     <!-- Search boxes end -->
 
@@ -183,7 +186,7 @@
 
             <!-- Popular Searches Section -->
             <div class=col-sm-4>
-                <div class="card bg-light mb-3">
+                <div class="card bg-light-transparent mb-3">
                     <h5 class="card-header  card_header_color"><i class="fas  fa-search">
                             Popular Searches </i></h5>
                     <div class="card-body ">
