@@ -51,7 +51,7 @@ $(document).on("click", "#run-submit", function () {
     });
    
 
-    loadInfo();
+loadInfo();
 
 function loadInfo(snapshot) {
 
