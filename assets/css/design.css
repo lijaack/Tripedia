@@ -159,6 +159,8 @@ button {
 
 }
 
+
+
 .title-image {
   width: 20vw;
   height:auto;
@@ -215,14 +217,7 @@ button {
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
   }
    
-  p {
-    text-align: justify;
-    padding-top: 10px;
-    font-size: 2vmin;
-    line-height: 150%;
-    color: #4B4B4B;
-  } 
-
+ 
   .btn {
     height:3vw;
   }
