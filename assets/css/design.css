@@ -121,6 +121,7 @@ h5 {
   .h1-title {
     font-family: 'Raleway', sans-serif;
     font-size: 3vw;
+
   }
 
 
@@ -156,8 +157,10 @@ button {
   position: absolute;
   top: 10%;
   z-index: 20;
-  color: grey;
-  width:100%
+  color: rgba(241, 241, 241);
+  width:100%;
+  text-shadow: 2px 2px 2px rgb(5, 5, 5)
+
 }
 
 .title-image {
