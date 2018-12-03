@@ -7,6 +7,7 @@ var config = {
     storageBucket: "travelsummary2018.appspot.com",
     messagingSenderId: "93557345644"
     };
+    
     firebase.initializeApp(config);
 
 // Create a variable to reference the database.
