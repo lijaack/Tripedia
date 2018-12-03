@@ -7,6 +7,7 @@ var config = {
     storageBucket: "travelsummary2018.appspot.com",
     messagingSenderId: "93557345644"
     };
+    
     firebase.initializeApp(config);
 
 // Create a variable to reference the database.
@@ -17,9 +18,10 @@ $(document).on("click", "#run-submit", function () {
     event.preventDefault();
   
     destinationSearch = $("#toDestination").val();
+    destinationSearchLC = destinationSearch.toLowerCase();
 
     // Test for the existence of certain keys within a DataSnapshot
-    var refcity = firebase.database().ref("destinations/" + destinationSearch);
+    var refcity = firebase.database().ref("destinations/" + destinationSearchLC);
 
     refcity.once("value")
     .then(function(snapcity) {
@@ -42,6 +44,7 @@ $(document).on("click", "#run-submit", function () {
         }
         else {
             refcity.set({
+                cityNameDisplay: destinationSearch,
                 counter: 1,
                 counterSort: -1,
                 dateAdded: firebase.database.ServerValue.TIMESTAMP
@@ -63,7 +66,7 @@ function loadInfo(snapshot) {
         console.log(snapshot.val());
         snapshot.forEach(function (child) {
 
-            $("#listSearches").append("<tr class='destinations'><td>" + child.key + " : " + child.val().counter + "</td></tr>");
+            $("#listSearches").append("<tr class='destinations'><td>" + child.val().cityNameDisplay + " : " + child.val().counter + "</td></tr>");
 
         });
     });
