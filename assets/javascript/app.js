@@ -143,7 +143,7 @@ function loadInfo(snapshot) {
 
         snapshot.forEach(function (child) {
 
-            $("#listSearches").append("<tr class='destinations'><td>" + child.val().cityNameDisplay + " : " + child.val().counter + "</td></tr>");
+            $("#listSearches").append("<tr class='destinations'><td>" + child.val().cityNameDisplay + "   :   " + child.val().counter + "</td></tr>");
 
         });
     });
@@ -243,7 +243,7 @@ function flightMain(){
                     var returnDuration = response.results[0].itineraries[0].outbound.duration;
 
 
-                    flightPrice.append("<h4> Cheapest flight: $"+ response.results[0].fare.price_per_adult.total_fare + "</h4>");
+                    flightPrice.append("<h4 class='pl-3'> Cheapest flight: $"+ response.results[0].fare.price_per_adult.total_fare + "</h4>");
                   
                     departureInfo.append("<p><strong> Departure flight</strong></p>");
                     departureInfo.append(departureIMG);
@@ -435,7 +435,7 @@ function addPlaceImage() {
                 if (businessAddress.length < 4 ){
                     businessAddress = "<span class='unavailable'>unavailable</span>";
                 }
-                yelpName.append('<h4 class="name">' + businessName + '</h2>')
+                yelpName.append('<h4 class="name pl-4">' + businessName + '</h2>')
                 yelpIMG.append('<img class="thumbnail yelp-img"  src="' + businessIMG + '">');
                 yelpContact.append('<p class="phone"><strong>Phone number:</strong> ' + businessPhone + '</p>')
                 yelpContact.append('<p class="address"><strong>Address:</strong> ' + businessAddress + '</p>')
