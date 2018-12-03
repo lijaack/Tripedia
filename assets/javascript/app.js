@@ -66,10 +66,9 @@ $("#run-submit").on("click", function(){
         //smooth scroll
         $('html,body').animate({scrollTop: $("#search-result").offset().top}, 'slow');
 
-    } else  if (to.length < 1 && from.length < 1) { 
-        $("#error").append($("<p class='padding-zero text-center' style='color: red'>").html("<strong>Make sure all inputs are filled in!</strong>"));
+    } else  if (to.length < 1 || from.length < 1) { 
+        $("#error").append($("<p class='padding-zero text-center error' style='color: red'>").html("<strong>Make sure all inputs are filled in!</strong>"));
     } else {
-        $("#error").empty()
         $("#error").append($("<p class='padding-zero text-center' style='color: red'>").html("<strong>Make sure the dates are correct</strong>"))
     }
 
