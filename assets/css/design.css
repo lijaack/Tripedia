@@ -181,6 +181,16 @@ button {
 
 }
 
+.city-image{
+  width:100%;
+  height:auto;
+  border-radius: 50px;
+}
+
+.pop-searches{
+  margin-top: 20px;
+
+}
 @media only screen and (min-width: 930px) {
 
   

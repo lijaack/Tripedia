@@ -68,6 +68,11 @@ $("#run-submit").on("click", function(){
         yelpMain()
         $("#safeInfo").html($("<div class='container text-center'><img src='http://www.fotos-lienzo.es/media/aw_searchautocomplete/default/loading.gif' style='width: 50px'></img></div>"))
 
+        //smooth scroll
+        $('html,body').animate({
+            scrollTop: $("#search-result").offset().top},
+            'slow');
+
     } else  if (to.length < 1 && from.length < 1) { 
         $("#error").append($("<p class='padding-zero text-center' style='color: red'>").html("<strong>Make sure all inputs are filled in!</strong>"));
     } else {
@@ -322,7 +327,7 @@ function addPlaceImage() {
         console.log(response);
         console.log(response.hits[0].userImageURL);
         $("#imagePlace").append(
-            "<img src=" + response.hits[0].previewURL + " width='150px' height='150px' class='rounded-circle mx-auto d-block'>");
+            "<img src=" + response.hits[0].largeImageURL + "  class='city-image mx-auto d-block'>");
     });
 
 }
