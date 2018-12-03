@@ -187,6 +187,10 @@ button {
   border-radius: 50px;
 }
 
+.pop-searches{
+  margin-top: 20px;
+
+}
 @media only screen and (min-width: 930px) {
 
   
