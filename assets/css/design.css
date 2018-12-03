@@ -31,10 +31,10 @@ a {
 
   
  .search-box-pc {
-  background: rgba(5, 128, 119, 0.3); 
+  background: rgba(5, 128, 119, 0.5); 
   
   position: absolute;
-  bottom: 9%;
+  bottom: 0%;
   width:100%;
   text-align: center;
  }
