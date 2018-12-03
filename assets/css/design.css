@@ -181,6 +181,12 @@ button {
 
 }
 
+.city-image{
+  width:100%;
+  height:auto;
+  border-radius: 50px;
+}
+
 @media only screen and (min-width: 930px) {
 
   
