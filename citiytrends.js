@@ -7,8 +7,10 @@ var config = {
     storageBucket: "travelsummary2018.appspot.com",
     messagingSenderId: "93557345644"
     };
+    
     firebase.initializeApp(config);
 
+    
 // Create a variable to reference the database.
 
 var database = firebase.database();
@@ -17,31 +19,30 @@ $(document).on("click", "#run-submit", function () {
     event.preventDefault();
   
     destinationSearch = $("#toDestination").val();
+    destinationSearchLC = destinationSearch.toLowerCase();
 
     // Test for the existence of certain keys within a DataSnapshot
-    var refcity = firebase.database().ref("destinations/" + destinationSearch);
+    var refcity = firebase.database().ref("destinations/" + destinationSearchLC);
 
     refcity.once("value")
     .then(function(snapcity) {
-        console.log(snapcity.val());
+
         var cityExist = snapcity.exists(); 
-        console.log("cityExist: " + cityExist);
 
         if (cityExist) {
-                console.log("updating")
-                console.log(snapcity.val());
-                var counterIA = snapcity.val().counter;
-                console.log("counterIA: " + counterIA);
-                var newCount = counterIA + 1;
-                console.log("ths is the new count " + newCount);
+
+                var oldCounter = snapcity.val().counter;
+                var newCounter = oldCounter + 1;
+
                 refcity.update({
-                    counter: newCount,
-                    counterSort: newCount * -1,
+                    counter: newCounter,
+                    counterSort: newCounter * -1,
                     dateUpdated: firebase.database.ServerValue.TIMESTAMP
                 });     
         }
         else {
             refcity.set({
+                cityNameDisplay: destinationSearch,
                 counter: 1,
                 counterSort: -1,
                 dateAdded: firebase.database.ServerValue.TIMESTAMP
@@ -59,11 +60,9 @@ function loadInfo(snapshot) {
         //Clean Destination Display
         $(".destinations").remove();
 
-        console.log("loading");
-        console.log(snapshot.val());
         snapshot.forEach(function (child) {
 
-            $("#listSearches").append("<tr class='destinations'><td>" + child.key + " : " + child.val().counter + "</td></tr>");
+            $("#listSearches").append("<tr class='destinations'><td>" + child.val().cityNameDisplay + " : " + child.val().counter + "</td></tr>");
 
         });
     });
