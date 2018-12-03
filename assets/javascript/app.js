@@ -31,7 +31,6 @@ function resize(){
 //
 
 
-console.log(moment().format("YYYY-MM-DD"))
 
 
 
@@ -46,10 +45,6 @@ $("#run-submit").on("click", function(){
     fromDate = $("#startDate").val();
     toDate = $("#endDate").val();
 
-    console.log(from);
-    console.log(to);
-    console.log(fromDate);
-    console.log(toDate);
 
     var afterNow = moment().isBefore($("#startDate").val(),"YYYY-MM-DD");
     var oneYearWindow = moment().add(1, 'year');
@@ -102,9 +97,7 @@ function flightMain(){
     var originName = $("#fromCity").val();
     var destinationName = $("#toDestination").val();
     var startDate = $("#startDate").val();
-    console.log(startDate)
     var endDate = $("#endDate").val();
-    console.log(endDate)
     var originIATA = "";
     var destinationIATA = "";
     // var airlineCode ="";
@@ -154,7 +147,6 @@ function flightMain(){
         // put IATA codes into Parameters
 
             var flightURL = "https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=MenRvMLXx9zCjtsAkpL5X2Bt1fxrMwL7&origin=" + originIATA + "&destination=" +destinationIATA + "&departure_date=" + startDate + "&return_date=" + endDate;
-            console.log(flightURL)
 
         //then grab the flight informations available using IATA codes 
             $.ajax({
@@ -163,8 +155,6 @@ function flightMain(){
             }).then(function(response) {
                 
             // after the flight information is retrieved, append the information for the cheapest airline to the DOM
-                console.log(response)
-
 
                     $("#flightInfo").empty();
                
@@ -206,9 +196,6 @@ function flightMain(){
     
                 for (var i = 0; i < 10; i++){
 
-                    console.log(response.results[i])
-                    console.log(response.results[i].fare.price_per_adult.total_fare)
-                    console.log(response.results[i].itineraries[0].inbound.flights[0].marketing_airline)
                     var flightPrice = $("<div class='row'>")
                     var flightInfo = $("<div class='row'>")
                     var departureInfo = $("<div class='col-5'>")
@@ -314,16 +301,13 @@ function addGoogleMaps() {
 
 function addPlaceImage() {
     var queryURL = "https://pixabay.com/api/?key=10849663-53e62b6c16040677cfacbb330&q=" + to + "&image_type=photo&per_page=3&category='places'";
-    console.log("Query" + queryURL);
 
     // Call pixaBay
     $.ajax({
         url: queryURL,
         method: "GET"
     }).then(function (response) {
-        console.log("==============================================================================")
-        console.log(response);
-        console.log(response.hits[0].userImageURL);
+     
         $("#imagePlace").append(
             "<img src=" + response.hits[0].largeImageURL + "  class='city-image mx-auto d-block'>");
     });
@@ -361,7 +345,7 @@ function addPlaceImage() {
                 authorization: "Bearer 8ldJWpM7u31LuDTTQXmQZ7pJb8PGvrEzgMWXOYN8EXy6C7tEY59Cdd-9EpslvK0K8jg2hLLW7GCWEGQpmdcy0ry4LLc6dKaG739eZGCCWWvUW4Szt7HpOeG7BvH-W3Yx"
             }
         }).then(function (response) {
-            console.log(response)
+
             $("#yelpInfo").empty();
           //  for (var i = 0; i < response.businesses.length; i++) {
             for (var i = 0; i < 3; i++) {
@@ -419,7 +403,6 @@ function addPlaceImage() {
         
         }).then(function (response) {
           
-            console.log(response);
             displayInfo(response);
         });
     }
@@ -439,7 +422,7 @@ function addPlaceImage() {
         $("#modalAdvisoryTitle").append('<i class="fas  fa-info-circle">Advisory Information </i>');
     
         $("#modal-advisory-body").append("<p><strong>Required:  </strong><p id='required'></p><p><strong>Required:  </strong><p id='safety'></p>")
-        console.log("body");
+
         for (i=0; i < countryInfo.entryExitRequirement.requirementInfo.length; i++) {
              $("#required").append("<strong>" + countryInfo.entryExitRequirement.requirementInfo[i].category + "</strong>-->" + countryInfo.entryExitRequirement.requirementInfo[i].description + "<br>");
          }
