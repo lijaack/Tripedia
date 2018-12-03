@@ -10,6 +10,7 @@ var config = {
     
     firebase.initializeApp(config);
 
+    
 // Create a variable to reference the database.
 
 var database = firebase.database();
@@ -58,7 +59,7 @@ function loadInfo(snapshot) {
     database.ref("destinations").orderByChild("counterSort").limitToFirst(10).on('value', function (snapshot) {
         //Clean Destination Display
         $(".destinations").remove();
-        
+
         snapshot.forEach(function (child) {
 
             $("#listSearches").append("<tr class='destinations'><td>" + child.val().cityNameDisplay + " : " + child.val().counter + "</td></tr>");
