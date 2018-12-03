@@ -8,8 +8,22 @@ jQuery.ajaxPrefilter(function (options) {
     }
 });
 
+//===================================================media query====================================================================
+resize();
+$(window).resize(function(){
+    resize();
+})
 
 
+function resize(){
+    if($(window).width() < 930){
+        
+        $('.search-box-pc').children().appendTo($('.search-box'));
+    }
+    else{
+        $('.search-box').children().appendTo($('.search-box-pc'));
+    }
+}  
 
 
 //
@@ -24,22 +38,27 @@ console.log(moment().format("YYYY-MM-DD"))
 
 
 
-$(".run-submit").on("click", function(){
+$("#run-submit").on("click", function(){
     event.preventDefault();
-    $(".error").empty()
-    from = $(".fromCity").val();
-    to = $(".toDestination").val();
-    fromDate = $(".startDate").val();
-    toDate = $(".endDate").val();
+    $("#error").empty()
+    from = $("#fromCity").val();
+    to = $("#toDestination").val();
+    fromDate = $("#startDate").val();
+    toDate = $("#endDate").val();
 
-    var afterNow = moment().isBefore($(".startDate").val(),"YYYY-MM-DD");
+    console.log(from);
+    console.log(to);
+    console.log(fromDate);
+    console.log(toDate);
+
+    var afterNow = moment().isBefore($("#startDate").val(),"YYYY-MM-DD");
     var oneYearWindow = moment().add(1, 'year');
     var beforeWindow = moment(toDate,"YYYY-MM-DD").isBefore(oneYearWindow);
     var withinYear = moment(fromDate,"YYYY-MM-DD").isBefore(oneYearWindow);
     var afterFromDate = moment(toDate,"YYYY-MM-DD").isAfter(moment(fromDate,"YYYY-MM-DD"));
 
     if (afterNow && beforeWindow && withinYear && to.length > 0 && from.length > 0 && afterFromDate) {
-        $(".error").empty()
+        $("#error").empty()
         clearSearch();
         showContainers();
         
@@ -50,10 +69,10 @@ $(".run-submit").on("click", function(){
         $("#safeInfo").html($("<div class='container text-center'><img src='http://www.fotos-lienzo.es/media/aw_searchautocomplete/default/loading.gif' style='width: 50px'></img></div>"))
 
     } else  if (to.length < 1 && from.length < 1) { 
-        $(".error").append($("<p class='padding-zero text-center' style='color: red'>").html("<strong>Make sure all inputs are filled in!</strong>"));
+        $("#error").append($("<p class='padding-zero text-center' style='color: red'>").html("<strong>Make sure all inputs are filled in!</strong>"));
     } else {
-        $(".error").empty()
-        $(".error").append($("<p class='padding-zero text-center' style='color: red'>").html("<strong>Make sure the dates are correct</strong>"))
+        $("#error").empty()
+        $("#error").append($("<p class='padding-zero text-center' style='color: red'>").html("<strong>Make sure the dates are correct</strong>"))
     }
 
 
@@ -77,11 +96,11 @@ function flightMain(){
     $("#flightInfo").html($("<div class='container text-center'><img src='http://www.fotos-lienzo.es/media/aw_searchautocomplete/default/loading.gif' style='width: 50px'></img></div>"))
 
 
-    var originName = $(".fromCity").val();
-    var destinationName = $(".toDestination").val();
-    var startDate = $(".startDate").val();
+    var originName = $("#fromCity").val();
+    var destinationName = $("#toDestination").val();
+    var startDate = $("#startDate").val();
     console.log(startDate)
-    var endDate = $(".endDate").val();
+    var endDate = $("#endDate").val();
     console.log(endDate)
     var originIATA = "";
     var destinationIATA = "";
@@ -329,7 +348,7 @@ function addPlaceImage() {
         $("#yelpInfo").empty();
         $("#yelp-modal-body").empty();
         $("#yelpInfo").html($("<div class='container text-center'><img src='http://www.fotos-lienzo.es/media/aw_searchautocomplete/default/loading.gif' style='width: 50px'></img></div>"));
-        var location = $(".toDestination").val()
+        var location = $("#toDestination").val()
 
         $.ajax({
             url: 'https://api.yelp.com/v3/businesses/search?term=activities' + '&location=' + location + '',
