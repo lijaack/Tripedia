@@ -68,6 +68,11 @@ $("#run-submit").on("click", function(){
         yelpMain()
         $("#safeInfo").html($("<div class='container text-center'><img src='http://www.fotos-lienzo.es/media/aw_searchautocomplete/default/loading.gif' style='width: 50px'></img></div>"))
 
+        //smooth scroll
+        $('html,body').animate({
+            scrollTop: $("#search-result").offset().top},
+            'slow');
+
     } else  if (to.length < 1 && from.length < 1) { 
         $("#error").append($("<p class='padding-zero text-center' style='color: red'>").html("<strong>Make sure all inputs are filled in!</strong>"));
     } else {
