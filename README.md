@@ -12,7 +12,7 @@ Future direction includes integration to booking/ reservations and links to soci
 APIs would be moved to production level to enhance application performance
 We would also add an offline version for mobile download
 
-## Tech used
+## Built With
 
 APIs
 Amadeus (flight info)
@@ -47,6 +47,15 @@ Other issues:
 No consistency in apis/ each requires independent research
 Github branching and use cumbersome.
 Media queries - had to be done via JS not in CSS
+
+## Authors
+- Paul: https://github.com/paulwinfieldrogers
+- Vivian: https://github.com/vaguilar25
+- Jack:   https://github.com/lijaack
+- Isabel: https://github.com/iarcones
+
+## Screenshots
+Visit us here: https://lijaack.github.io/Project-one/
 
 <p>
   <img src="Screen Shot 2018-12-03 at 1.14.40 PM.png" width="350" title="hover text">
