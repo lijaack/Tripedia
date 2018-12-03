@@ -10,6 +10,7 @@ var config = {
     
     firebase.initializeApp(config);
 
+    
 // Create a variable to reference the database.
 
 var database = firebase.database();
@@ -25,20 +26,17 @@ $(document).on("click", "#run-submit", function () {
 
     refcity.once("value")
     .then(function(snapcity) {
-        console.log(snapcity.val());
+
         var cityExist = snapcity.exists(); 
-        console.log("cityExist: " + cityExist);
 
         if (cityExist) {
-                console.log("updating")
-                console.log(snapcity.val());
-                var counterIA = snapcity.val().counter;
-                console.log("counterIA: " + counterIA);
-                var newCount = counterIA + 1;
-                console.log("ths is the new count " + newCount);
+
+                var oldCounter = snapcity.val().counter;
+                var newCounter = oldCounter + 1;
+
                 refcity.update({
-                    counter: newCount,
-                    counterSort: newCount * -1,
+                    counter: newCounter,
+                    counterSort: newCounter * -1,
                     dateUpdated: firebase.database.ServerValue.TIMESTAMP
                 });     
         }
@@ -62,8 +60,6 @@ function loadInfo(snapshot) {
         //Clean Destination Display
         $(".destinations").remove();
 
-        console.log("loading");
-        console.log(snapshot.val());
         snapshot.forEach(function (child) {
 
             $("#listSearches").append("<tr class='destinations'><td>" + child.val().cityNameDisplay + " : " + child.val().counter + "</td></tr>");
