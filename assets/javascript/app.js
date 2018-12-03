@@ -66,12 +66,10 @@ $("#run-submit").on("click", function(){
         addGoogleMaps();
         flightMain();
         yelpMain()
-        $("#safeInfo").html($("<div class='container text-center'><img src='http://www.fotos-lienzo.es/media/aw_searchautocomplete/default/loading.gif' style='width: 50px'></img></div>"))
+        $("#safeInfo").html($("<div class='container text-center'><img src='assets/images/loader.gif'></img></div>"))
 
         //smooth scroll
-        $('html,body').animate({
-            scrollTop: $("#search-result").offset().top},
-            'slow');
+        $('html,body').animate({scrollTop: $("#search-result").offset().top}, 'slow');
 
     } else  if (to.length < 1 && from.length < 1) { 
         $("#error").append($("<p class='padding-zero text-center' style='color: red'>").html("<strong>Make sure all inputs are filled in!</strong>"));
@@ -98,7 +96,7 @@ function flightMain(){
     $("#flightInfo").empty();
     $("#modal-flight-body").empty();
     
-    $("#flightInfo").html($("<div class='container text-center'><img src='http://www.fotos-lienzo.es/media/aw_searchautocomplete/default/loading.gif' style='width: 50px'></img></div>"))
+    $("#flightInfo").html($("<div class='container text-center'><img src='assets/images/loader.gif'></img></div>"))
 
 
     var originName = $("#fromCity").val();
@@ -352,7 +350,7 @@ function addPlaceImage() {
 
         $("#yelpInfo").empty();
         $("#yelp-modal-body").empty();
-        $("#yelpInfo").html($("<div class='container text-center'><img src='http://www.fotos-lienzo.es/media/aw_searchautocomplete/default/loading.gif' style='width: 50px'></img></div>"));
+        $("#yelpInfo").html($("<div class='container text-center'><img src='assets/images/loader.gif'></img></div>"));
         var location = $("#toDestination").val()
 
         $.ajax({
