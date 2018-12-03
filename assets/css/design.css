@@ -194,10 +194,13 @@ button {
   border-radius: 50px;
 }
 
-.pop-searches{
-  margin-top: 20px;
-
+.phone .address{
+  font-size:25px;
 }
+.unavailable{
+  color:red;
+}
+
 @media only screen and (min-width: 930px) {
 
   
@@ -251,4 +254,12 @@ button {
   }
 
 
+}
+
+
+@media only screen and (max-width: 575px) {
+  .pop-searches{
+    margin-top: 20px;
+
+  }
 }
