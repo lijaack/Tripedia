@@ -5,14 +5,14 @@ Sometimes when you are taking some time off unexpectedly or just want ideas for 
 Without this app, you can google a destination & then review your search result or other sites for other things like flights and hotels.  This takes time.
 This site is intended to give you a snapshot of what this vacation may be like for the given location and dates and gives information of trending searches.
 
-Value Proposition/ Future Direction:
+## Value Proposition/ Future Direction:
 This gives an initial snapshot of flights, activities, hotels and advisory information.  It is intended to be used at the very start of your vacation planning
 Though for initial planning phase of a vacation it will eventually provide them with links so they can drill down and actually book their vacations
 Future direction includes integration to booking/ reservations and links to social media
 APIs would be moved to production level to enhance application performance
 We would also add an offline version for mobile download
 
-Tech used
+## Tech used
 
 APIs
 Amadeus (flight info)
@@ -30,7 +30,7 @@ Bootstrap
 CSS
 Font Awesome (icons) in each section
 
-Key Features
+## Key Features
 Firefox storage of popular searches
 Modal html functionality via Bootstrap
 Call to Amadeus to get flight info then loops through in app to get the cheapest 10 flights in modal.  Search either via name or IATA code
@@ -48,7 +48,10 @@ No consistency in apis/ each requires independent research
 Github branching and use cumbersome.
 Media queries - had to be done via JS not in CSS
 
-
+<p>
+  <img src="Screen Shot 2018-12-03 at 1.14.40 PM.png" width="350" title="hover text">
+  <img src="Screen Shot 2018-12-03 at 1.22.26 PM.png" width="350" alt="accessibility text">
+</p>
 
 
 
