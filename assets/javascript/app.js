@@ -346,10 +346,8 @@ function clearSearch() {
     $(".main-page").hide();
     $(".footer").hide();
 
-    $("#modalFlightTitle").text("");
     $("#modal-flight-body").text("");
 
-    $("#modalYelpTitle").text("");
     $("#modal-yelp-body").text("");
 
     $("#modalAdvisoryTitle").text("");
