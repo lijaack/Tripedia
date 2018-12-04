@@ -9,6 +9,7 @@ jQuery.ajaxPrefilter(function (options) {
 });
 
 //===================================================media query====================================================================
+
 resize();
 $(window).resize(function(){
     resize();
@@ -140,11 +141,12 @@ function loadInfo(snapshot) {
     database.ref("destinations").orderByChild("counterSort").limitToFirst(10).on('value', function (snapshot) {
         //Clean Destination Display
         $(".destinations").remove();
+        var rank = 1;
 
         snapshot.forEach(function (child) {
-
-            $("#listSearches").append("<tr class='destinations'><td>" + child.val().cityNameDisplay + "   :   " + child.val().counter + "</td></tr>");
-
+           
+            $("#listSearches").append("<tr class='destinations'><td>" + rank + ". " + child.val().cityNameDisplay + "</td></tr>");
+            rank++
         });
     });
 }
