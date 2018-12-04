@@ -30,10 +30,10 @@ a {
 
   
  .search-box-pc {
-  background: rgba(5, 128, 119, 0.3); 
+  background: rgba(5, 128, 119, 0.5); 
   
   position: absolute;
-  bottom: 9%;
+  bottom: 0%;
   width:100%;
   text-align: center;
  }
@@ -73,14 +73,6 @@ h5 {
     
   }
  
- 
-  p {
-    text-align: justify;
-    padding-top: 10px;
-    line-height: 150%;
-    color: #4B4B4B;
-  } 
-  
 
   /* Floating action button */
   .fab {
@@ -166,6 +158,8 @@ button {
 
 }
 
+
+
 .title-image {
   width: 20vw;
   height:auto;
@@ -193,12 +187,19 @@ button {
   border-radius: 50px;
 }
 
-.pop-searches{
-  margin-top: 20px;
-
+.phone .address{
+  font-size:25px;
 }
+.unavailable{
+  color:red;
+}
+
+
 @media only screen and (min-width: 930px) {
 
+  .error{
+    font-size: 1.5vw;
+  }
   
   .form-control-personal{
     display: block;
@@ -215,14 +216,7 @@ button {
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
   }
    
-  p {
-    text-align: justify;
-    padding-top: 10px;
-    font-size: 2vmin;
-    line-height: 150%;
-    color: #4B4B4B;
-  } 
-
+ 
   .btn {
     height:3vw;
   }
@@ -250,4 +244,12 @@ button {
   }
 
 
+}
+
+
+@media only screen and (max-width: 575px) {
+  .pop-searches{
+    margin-top: 20px;
+
+  }
 }

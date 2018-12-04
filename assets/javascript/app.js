@@ -56,20 +56,19 @@ $("#run-submit").on("click", function(){
         $("#error").empty()
         clearSearch();
         showContainers();
-        
+        runFirebase()
         addPlaceImage();
         addGoogleMaps();
         flightMain();
         yelpMain()
         $("#safeInfo").html($("<div class='container text-center'><img src='assets/images/loader.gif'></img></div>"))
-
+        
         //smooth scroll
         $('html,body').animate({scrollTop: $("#search-result").offset().top}, 'slow');
 
-    } else  if (to.length < 1 && from.length < 1) { 
-        $("#error").append($("<p class='padding-zero text-center' style='color: red'>").html("<strong>Make sure all inputs are filled in!</strong>"));
+    } else  if (to.length < 1 || from.length < 1) { 
+        $("#error").append($("<p class='padding-zero text-center error' style='color: red'>").html("<strong>Make sure all inputs are filled in!</strong>"));
     } else {
-        $("#error").empty()
         $("#error").append($("<p class='padding-zero text-center' style='color: red'>").html("<strong>Make sure the dates are correct</strong>"))
     }
 
@@ -78,6 +77,77 @@ $("#run-submit").on("click", function(){
 })  
 
 
+
+//
+//================================================================firebase==================================================
+//
+var config = {
+    apiKey: "AIzaSyDmgq0UdGAZGoVOK-cQXvcOqP3zEbxVJbU",
+    authDomain: "travelsummary2018.firebaseapp.com",
+    databaseURL: "https://travelsummary2018.firebaseio.com",
+    projectId: "travelsummary2018",
+    storageBucket: "travelsummary2018.appspot.com",
+    messagingSenderId: "93557345644"
+    };
+    
+    firebase.initializeApp(config);
+
+    
+// Create a variable to reference the database.
+
+var database = firebase.database();
+
+function runFirebase() {
+  
+    destinationSearch = $("#toDestination").val();
+    destinationSearchLC = destinationSearch.toLowerCase();
+
+    // Test for the existence of certain keys within a DataSnapshot
+    var refcity = firebase.database().ref("destinations/" + destinationSearchLC);
+
+    refcity.once("value")
+    .then(function(snapcity) {
+
+        var cityExist = snapcity.exists(); 
+
+        if (cityExist) {
+
+                var oldCounter = snapcity.val().counter;
+                var newCounter = oldCounter + 1;
+
+                refcity.update({
+                    counter: newCounter,
+                    counterSort: newCounter * -1,
+                    dateUpdated: firebase.database.ServerValue.TIMESTAMP
+                });     
+        }
+        else {
+            refcity.set({
+                cityNameDisplay: destinationSearch,
+                counter: 1,
+                counterSort: -1,
+                dateAdded: firebase.database.ServerValue.TIMESTAMP
+            });
+         }
+        });
+    };
+   
+
+loadInfo();
+
+function loadInfo(snapshot) {
+
+    database.ref("destinations").orderByChild("counterSort").limitToFirst(10).on('value', function (snapshot) {
+        //Clean Destination Display
+        $(".destinations").remove();
+
+        snapshot.forEach(function (child) {
+
+            $("#listSearches").append("<tr class='destinations'><td>" + child.val().cityNameDisplay + " : " + child.val().counter + "</td></tr>");
+
+        });
+    });
+}
 
 
 
@@ -345,7 +415,6 @@ function addPlaceImage() {
                 authorization: "Bearer 8ldJWpM7u31LuDTTQXmQZ7pJb8PGvrEzgMWXOYN8EXy6C7tEY59Cdd-9EpslvK0K8jg2hLLW7GCWEGQpmdcy0ry4LLc6dKaG739eZGCCWWvUW4Szt7HpOeG7BvH-W3Yx"
             }
         }).then(function (response) {
-
             $("#yelpInfo").empty();
           //  for (var i = 0; i < response.businesses.length; i++) {
             for (var i = 0; i < 3; i++) {
@@ -359,11 +428,17 @@ function addPlaceImage() {
                 var yelpInfo = $("<div class='row text-center'>")
                 var yelpIMG = $("<div class='col-4'>")
                 var yelpContact = $("<div class='col-8'>")
-               
-                yelpName.append('<h2 class="name">' + businessName + '</h2>')
+                if (businessPhone.length < 4 ){
+                    businessPhone = "<span class='unavailable'>unavailable</span>";
+                }
+
+                if (businessAddress.length < 4 ){
+                    businessAddress = "<span class='unavailable'>unavailable</span>";
+                }
+                yelpName.append('<h4 class="name">' + businessName + '</h2>')
                 yelpIMG.append('<img class="thumbnail yelp-img"  src="' + businessIMG + '">');
-                yelpContact.append('<p class="phone">' + businessPhone + '</p>')
-                yelpContact.append('<p class="address">' + businessAddress + '</p>')
+                yelpContact.append('<p class="phone"><strong>Phone number:</strong> ' + businessPhone + '</p>')
+                yelpContact.append('<p class="address"><strong>Address:</strong> ' + businessAddress + '</p>')
                 yelpInfo.append(yelpIMG, yelpContact)
 
                 $("#yelpInfo").append(yelpName, yelpInfo, $("<hr>"))
@@ -376,8 +451,29 @@ function addPlaceImage() {
             }
             // for modal
             for (var i = 0; i < response.businesses.length; i++) {
-                $("#yelp-modal-body").append('<img class="thumbnail yelp-img"  src="' + response.businesses[i].image_url + '"/><h2 class="name">' + response.businesses[i].name + '</h2><p class="phone">' + response.businesses[i].display_phone + '</p><p class="address">' + response.businesses[i].location.address1 + ', ' + response.businesses[i].location.city + ' ' + response.businesses[i].location.zip_code + '</p><hr>')
-            }
+                var businessName = response.businesses[i].name;
+                var businessIMG = response.businesses[i].image_url;
+                var businessPhone = response.businesses[i].display_phone ;
+                var businessAddress = response.businesses[i].location.address1 + ', ' + response.businesses[i].location.city + ' ' + response.businesses[i].location.zip_code;
+              
+                if (businessPhone.length < 4 ){
+                   businessPhone = "<span class='unavailable'>unavailable</span>";
+               }
+               if (businessAddress.length < 4 ){
+                businessAddress = "<span class='unavailable'>unavailable</span>";
+                }
+                var yelpName= $("<div class='row text-center'>")
+                var yelpInfo = $("<div class='row text-center'>")
+                var yelpIMG = $("<div class='col-4'>")
+                var yelpContact = $("<div class='col-8'>")
+               
+                yelpName.append('<h4 class="name">' + businessName + '</h2>')
+                yelpIMG.append('<img class="thumbnail yelp-img"  src="' + businessIMG + '">');
+                yelpContact.append('<p class="phone"><strong>Phone number:</strong> ' + businessPhone + '</p>')
+                yelpContact.append('<p class="address"><strong>Address:</strong> ' + businessAddress + '</p>')
+                yelpInfo.append(yelpIMG, yelpContact)
+
+                $("#yelp-modal-body").append(yelpName, yelpInfo, $("<hr>"))            }
 
         });
 
@@ -401,8 +497,8 @@ function addPlaceImage() {
                 "X-Auth-API-Key": "8rd59kunmnbv8ubnpwskjhcy"
             }
         
-        }).then(function (response) {
-          
+        }).then(function (response) {           
+            console.log(response);
             displayInfo(response);
         });
     }
@@ -412,16 +508,20 @@ function addPlaceImage() {
     
        
         $("#safeInfo").empty();
-
+        var climateInfo = countryInfo.climate.description;
+        if (climateInfo === null ){
+            climateInfo = "<span class='unavailable'>unavailable</span>";
+        }
     
-        $("#safeInfo").html("<p><strong>General:  </strong>" + countryInfo.advisories.description + "</p><p><strong>Climate:  </strong>" + countryInfo.climate.description + "</p><p><strong>Health:  </strong>" + countryInfo.health.description + "</p>");
+        $("#safeInfo").html("<p><strong>General:  </strong>" + countryInfo.advisories.description + "</p><p><strong>Climate:  </strong>" + climateInfo + "</p><p><strong>Health:  </strong>" + countryInfo.health.description + "</p>");
         
         
         // info for the modal //
         // modal-advisory-body
         $("#modalAdvisoryTitle").append('<i class="fas  fa-info-circle">Advisory Information </i>');
     
-        $("#modal-advisory-body").append("<p><strong>Required:  </strong><p id='required'></p><p><strong>Required:  </strong><p id='safety'></p>")
+
+        $("#modal-advisory-body").append("<p><strong>Required:  </strong><p id='required'></p><p><strong>Safety:  </strong><p id='safety'></p>")
 
         for (i=0; i < countryInfo.entryExitRequirement.requirementInfo.length; i++) {
              $("#required").append("<strong>" + countryInfo.entryExitRequirement.requirementInfo[i].category + "</strong>-->" + countryInfo.entryExitRequirement.requirementInfo[i].description + "<br>");
