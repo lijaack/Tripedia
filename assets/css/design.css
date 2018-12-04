@@ -194,6 +194,10 @@ button {
   color:red;
 }
 
+.destinations {
+  padding-left: 15px;
+  font-size: 18px;
+}
 
 @media only screen and (min-width: 930px) {
 
