@@ -1,5 +1,6 @@
-# Project-one
+## Because of our limited resources, our Amadeus API key has been removed. Flight information will not be displayed.   
 
+# Project-one  
 Problem Statement:  
 Sometimes when you are taking some time off unexpectedly or just want ideas for a vacation you may want a high-level planning application without the need to dig deep into a website or multiple websites.
 Without this app, you can google a destination & then review your search result or other sites for other things like flights and hotels.  This takes time.
