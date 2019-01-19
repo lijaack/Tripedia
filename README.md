@@ -37,17 +37,6 @@ Call to Amadeus to get flight info then loops through in app to get the cheapest
 APIs for Yelp, Google and Togo
 Uses a single variable passed to set location for all JS and API functionality
 
-Firebase issues 
- - Storing trendig difficult to solution
- - Difficult to find Firebase documentation
- - No deep knowledge on team 
- 
-Other issues:
-
-No consistency in apis/ each requires independent research
-Github branching and use cumbersome.
-Media queries - had to be done via JS not in CSS
-
 ## Authors
 - Paul: https://github.com/paulwinfieldrogers
 - Vivian: https://github.com/vaguilar25
