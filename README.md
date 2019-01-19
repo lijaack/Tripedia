@@ -1,5 +1,5 @@
 ## Because of our limited resources, our Amadeus API key has been removed. Flight information will not be displayed.   
-
+  https://lijaack.github.io/Tripedia/
 # Project-one  
 Problem Statement:  
 Sometimes when you are taking some time off unexpectedly or just want ideas for a vacation you may want a high-level planning application without the need to dig deep into a website or multiple websites.
